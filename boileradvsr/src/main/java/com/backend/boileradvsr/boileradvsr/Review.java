@@ -1,7 +1,6 @@
 package com.backend.boileradvsr.boileradvsr;
 import java.util.Date;
 
-import org.yaml.snakeyaml.constructor.Construct;
 
 public class Review {
     Course course;
