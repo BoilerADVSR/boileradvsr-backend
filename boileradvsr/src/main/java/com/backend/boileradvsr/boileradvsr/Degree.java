@@ -24,4 +24,8 @@ public class Degree {
         this.college = college;
         this.department = department;
     }
+
+    public ArrayList<String> getAvailableSpecializations() {
+        return(specializationsAvailable);
+    }
 }

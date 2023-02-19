@@ -17,4 +17,23 @@ public class Semester {
         this.season = season;
         this.courses = courses;
     }
+
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
+    public ArrayList<Course> getCourses() {
+        return(courses);
+    }
+
+    public boolean removeCourse(Course course) {
+        for (int index = 0; index < courses.size(); index++) {
+            if (course.equals(courses.get(index))) {
+                courses.remove(index);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

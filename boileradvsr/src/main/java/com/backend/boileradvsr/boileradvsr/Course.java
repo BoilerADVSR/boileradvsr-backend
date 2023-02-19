@@ -22,5 +22,33 @@ public class Course {
         this.college = college;
     }
 
+    //needs implementation
+    public boolean equals (Course comparison) {
+        if (!courseIdDepartment.equals(comparison.getCourseIdDepartment())) return false;
+        if (!courseIdNumber.equals(comparison.getCourseIdNumber())) return false;
+        if (!courseTitle.equals(comparison.getCourseTitle())) return false;
+        if (!college.equals(comparison.getCollege())) return false;
+        if (!department.equals(comparison.getDepartment())) return false;
+
+        return true;
+    }
+
+    public String getCourseIdDepartment() {
+        return courseIdDepartment;
+    }
+
+    public String getCourseIdNumber() {
+        return courseIdNumber;
+    }
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+    public String getCollege() {
+        return college;
+    }
+    public String getDepartment() {
+        return department;
+    }
+
 
 }

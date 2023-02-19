@@ -12,4 +12,9 @@ public class PlanOfStudy {
         this.degrees = degrees;
         this.semesters = semesters;
     }
+
+    public void addDegree(Degree degree) {
+        degrees.add(degree);
+    }
+
 }

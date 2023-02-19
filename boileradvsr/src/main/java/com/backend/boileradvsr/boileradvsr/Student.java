@@ -8,7 +8,7 @@ public class Student {
     String password;
     Semester graduationSemester;
     double GPA;
-    ArrayList<Course> courses;
+    ArrayList<Semester> semesters;
     ArrayList<Degree> degrees;
     PlanOfStudy planOfStudy;
     ArrayList<Advisor> academicAdvisors;
@@ -19,4 +19,26 @@ public class Student {
         this.email = email;
         this.password = password;
     }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGPA(double GPA) {
+        this.GPA = GPA;
+    }
+
+    public ArrayList<Semester> getSemesters() {
+        return(semesters);
+    }
+
+    public void addSemester(Semester semester) {
+        semesters.add(semester);
+    }
+
+    public void addDegree(Degree degree) {
+        degrees.add(degree);
+    }
+
+    
 }
