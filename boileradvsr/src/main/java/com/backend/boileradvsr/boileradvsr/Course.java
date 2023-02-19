@@ -15,8 +15,7 @@ public class Course {
     enum COURSETYPE {
         STUDENT,
         DATABASE
-    }
-    
+    }    
 
 
     public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, COURSETYPE type) {
@@ -32,6 +31,8 @@ public class Course {
     }
 
     //Database course constructer
+    public Course() {}
+
 
     //needs implementation
     public boolean equals (Course comparison) {

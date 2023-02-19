@@ -27,9 +27,24 @@ public class Review {
 
     }
 
-    //TODO
+    //TODO need to add student equals;
     public boolean equals(Review comparison) {
+        if (!course.equals(comparison.getCourse())) return false;
+        if (!reviewText.equals(comparison.getReviewText())) return false;
+        if (!(overallRating == comparison.getOverallRating())) return false;
+        
         return true;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public String getReviewText() {
+        return reviewText;
+    }
+    public double getOverallRating() {
+        return overallRating;
     }
 
 }
