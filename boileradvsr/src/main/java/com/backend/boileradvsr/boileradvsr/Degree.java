@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 public class Degree {
 
-    enum DegreeType {
+    enum DEGREETYPE {
         MAJOR,
         MINOR,
         CONCENTRATION,
         CERTIFICATE
     }
 
-    DegreeType degreeType;
+    DEGREETYPE degreeType;
     String degreeTitle;
     String college;
     String department;
@@ -18,11 +18,17 @@ public class Degree {
     ArrayList<String> specializationsAvailable;
     ArrayList<String> specializationsSelected;
     
-    public Degree(DegreeType degreeType, String degreeTitle, String college, String department) {
+    public Degree(DEGREETYPE degreeType, String degreeTitle, String college, String department) {
         this.degreeType = degreeType;
         this.degreeTitle = degreeTitle;
         this.college = college;
         this.department = department;
+        specializationsSelected = new ArrayList<String>();
+        specializationsAvailable = new ArrayList<String>();
+        requirements = new ArrayList<Requirement>();
+
+
+
     }
 
     public ArrayList<String> getAvailableSpecializations() {
