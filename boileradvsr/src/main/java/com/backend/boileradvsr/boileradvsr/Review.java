@@ -27,4 +27,9 @@ public class Review {
 
     }
 
+    //TODO
+    public boolean equals(Review comparison) {
+        return true;
+    }
+
 }

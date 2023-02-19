@@ -9,18 +9,29 @@ public class Course {
     private String college;
     private double averageRating;
     private double averageGPA;
-    private ArrayList<Grade> gradePercentages;
+    private Grade grade;
     private ArrayList<Review> reviews;
+
+    enum COURSETYPE {
+        STUDENT,
+        DATABASE
+    }
     
 
 
-    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college) {
+    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, COURSETYPE type) {
         this.courseIdDepartment = courseIdDepartment;
         this.courseIdNumber = courseIdNumber;
         this.courseTitle = courseTitle;
         this.department = department;
         this.college = college;
+
+        if (type == COURSETYPE.DATABASE) {
+            reviews = new ArrayList<Review>();
+        }
     }
+
+    //Database course constructer
 
     //needs implementation
     public boolean equals (Course comparison) {
@@ -31,6 +42,21 @@ public class Course {
         if (!department.equals(comparison.getDepartment())) return false;
 
         return true;
+    }
+
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
+    public boolean deleteReview(Review review) {
+        for (int index = 0; index < reviews.size(); index++) {
+            if (review.equals(reviews.get(index))) {
+                reviews.remove(index);
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getCourseIdDepartment() {
@@ -48,6 +74,26 @@ public class Course {
     }
     public String getDepartment() {
         return department;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+    
+    public double getAverageGPA() {
+        return averageGPA;
+    }
+
+    public double getAverageRating() {
+        return averageRating;
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
     }
 
 
