@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Advisor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/BoileradvsrApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/ClusterManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Course.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Degree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Grade.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/PlanOfStudy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Professor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Requirement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Review.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Semester.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/backend/boileradvsr/boileradvsr/Student.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/test/java/com/backend/boileradvsr/boileradvsr/BoileradvsrApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2M3wLeG7PcJk110UM2BIyI5XiNZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="" />
+      <created>1677009519952</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1677009519952</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="89" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1677009706187">
+      <screen x="0" y="25" width="1440" height="811" />
+    </state>
+    <state x="184" y="89" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.811@0.25.1440.811" timestamp="1677009706187" />
+  </component>
+</project>
