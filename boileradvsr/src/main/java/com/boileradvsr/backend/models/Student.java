@@ -1,9 +1,14 @@
 package com.boileradvsr.backend.models;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+@Document(collection = "students")
 public class Student {
     String firstName;
     String lastName;
+    @Id
     String email;
     String password;
     Semester graduationSemester;
