@@ -13,6 +13,10 @@ public class StudentController {
         }
 
         public Student findByEmail(String email) {
+<<<<<<< HEAD
+=======
+            Student student =  studentRepo.findById(email);
+>>>>>>> c889efa (controller/repository)
             return null;
         }
 
