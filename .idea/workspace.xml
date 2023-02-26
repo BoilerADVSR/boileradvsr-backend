@@ -7,6 +7,9 @@
     <list default="true" id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/StudentRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +18,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -33,7 +39,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/garre/Desktop/cs307/boileradvsr-frontend/boileradvsr-backend/boileradvsr",
+    "last_opened_file_path": "C:/Users/abdul/IdeaProjects/boileradvsr-backend/boileradvsr",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,5 +70,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
