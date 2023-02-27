@@ -8,6 +8,9 @@ public class Professor {
     String department;
     ArrayList<Course> coursesTaught;
     String rateMyProfessor;
+    double rating;
+    double avgGPA;
+
     //https://github.com/tisuela/ratemyprof-api needs Implementation
 
     public Professor(String firstName, String lastName, String department) {
