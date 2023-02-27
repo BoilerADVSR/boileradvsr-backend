@@ -25,7 +25,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         repository.deleteAll();
         repository.save(new Student("Garrett", "O'Brien", "g@purdue.edu", "pw"));
 
-        repository.findByEmail("g@purdue.edu");
+        repository.findByFirstName("Garrett");
     }
 
 }
