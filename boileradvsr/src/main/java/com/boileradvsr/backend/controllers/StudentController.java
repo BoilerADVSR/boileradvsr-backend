@@ -13,7 +13,6 @@ public class StudentController {
         }
 
         public Student findByEmail(String email) {
-            Student student =  studentRepo.findById(email);
             return null;
         }
 
