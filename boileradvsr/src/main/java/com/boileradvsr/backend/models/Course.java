@@ -3,11 +3,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-@Document
+@Document(collection = "courseCatalog")
 public class Course {
     @Id
-    public String ID;
+    public String id;
 
+    public String courseID;
     private String courseIdDepartment;
     private String courseIdNumber;
     private String courseTitle;
@@ -24,17 +25,14 @@ public class Course {
     }    
 
 
-    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, COURSETYPE type) {
-        this.ID = courseIdDepartment + courseIdDepartment;
+    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college) {
+        this.courseID = courseIdDepartment + courseIdNumber;
         this.courseIdDepartment = courseIdDepartment;
         this.courseIdNumber = courseIdNumber;
         this.courseTitle = courseTitle;
         this.department = department;
         this.college = college;
 
-        if (type == COURSETYPE.DATABASE) {
-            reviews = new ArrayList<Review>();
-        }
     }
 
     //Database course constructer
@@ -104,5 +102,7 @@ public class Course {
         this.grade = grade;
     }
 
-
+    public String getCourseID() {
+        return courseID;
+    }
 }
