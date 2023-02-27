@@ -1,6 +1,9 @@
 package com.boileradvsr.backend.models;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+@Document(collection="degrees")
 public class Degree {
 
     enum DEGREETYPE {
