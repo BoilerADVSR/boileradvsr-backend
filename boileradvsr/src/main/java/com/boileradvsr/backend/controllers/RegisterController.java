@@ -25,7 +25,7 @@ public class RegisterController {
         if (emailCheck(email).equals("Invalid")) {
             return "Invalid email";
         }
-        Student student = repository.findByEmail(email);
+        Student student = repository.findStudentByEmail(email);
         if (student == null) {
             Student newStudent = new Student(email, password, firstName, lastName);
             repository.save(newStudent);

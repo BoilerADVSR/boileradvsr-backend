@@ -116,4 +116,5 @@ public class Student {
     public void setAcademicAdvisors(ArrayList<Advisor> academicAdvisors) {
         this.academicAdvisors = academicAdvisors;
     }
+
 }
