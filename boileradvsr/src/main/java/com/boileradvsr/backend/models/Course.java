@@ -34,14 +34,12 @@ public class Course {
         this.department = department;
         this.college = college;
         ratings = new ArrayList<Integer>();
+        //TODO needs fixing (set a default rating)
+        averageRating = 5;
 
     }
 
-    //Database course constructer
-    public Course() {}
-
-
-    //needs implementation
+    //TODO needs to be fixed *maybe(currently bad)
     public boolean equals (Course comparison) {
         if (!courseIdDepartment.equals(comparison.getCourseIdDepartment())) return false;
         if (!courseIdNumber.equals(comparison.getCourseIdNumber())) return false;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 @Document(collection="degrees")
 public class Degree {
 
-    enum DEGREETYPE {
+    public enum DEGREETYPE {
         MAJOR,
         MINOR,
         CONCENTRATION,
@@ -32,8 +32,9 @@ public class Degree {
         specializationsAvailable = new ArrayList<String>();
         requirements = new ArrayList<Requirement>();
 
-
-
+    }
+    public DEGREETYPE getDegreeType() {
+        return degreeType;
     }
 
     public String getDegreeTitle() {
@@ -44,12 +45,41 @@ public class Degree {
         return college;
     }
 
-    
-
     public String getDepartment() {
         return department;
     }
 
+    public ArrayList<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public ArrayList<String> getSpecializationsAvailable() {
+        return specializationsAvailable;
+    }
+
+    public ArrayList<String> getSpecializationsSelected() {
+        return specializationsSelected;
+    }
+
+    public void addSpecialization(String specialization) {
+        specializationsSelected.add(specialization);
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public void setDegreeTitle(String degreeTitle) {
+        this.degreeTitle = degreeTitle;
+    }
+
+    public void setDegreeType(DEGREETYPE degreeType) {
+        this.degreeType = degreeType;
+    }
 
     public ArrayList<String> getAvailableSpecializations() {
         return(specializationsAvailable);

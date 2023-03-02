@@ -31,6 +31,7 @@ public class StudentController {
     public Student getStudent(@PathVariable String id) {
             return repository.findById(id).orElseThrow(RuntimeException::new);
     }
+
     @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
         Student savedStudent = repository.save(student);

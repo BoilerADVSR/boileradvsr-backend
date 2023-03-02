@@ -13,6 +13,11 @@ public class PlanOfStudy {
         this.semesters = semesters;
     }
 
+    public PlanOfStudy() {
+        degrees = new ArrayList<>();
+        semesters = new ArrayList<>();
+    }
+
     public void addDegree(Degree degree) {
         degrees.add(degree);
     }
