@@ -1,7 +1,12 @@
 package com.boileradvsr.backend.models;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 
+@Document(collection="requirements")
 public class Requirement {
+    @Id
     String requirementName;
     ArrayList<Course> courses;
 

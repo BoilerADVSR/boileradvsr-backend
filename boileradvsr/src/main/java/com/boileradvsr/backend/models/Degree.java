@@ -1,4 +1,5 @@
 package com.boileradvsr.backend.models;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Degree {
     }
 
     DEGREETYPE degreeType;
+    @Id
     String degreeTitle;
     String college;
     String department;
@@ -33,6 +35,21 @@ public class Degree {
 
 
     }
+
+    public String getDegreeTitle() {
+        return degreeTitle;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    
+
+    public String getDepartment() {
+        return department;
+    }
+
 
     public ArrayList<String> getAvailableSpecializations() {
         return(specializationsAvailable);
