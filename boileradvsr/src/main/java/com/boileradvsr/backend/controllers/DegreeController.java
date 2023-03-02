@@ -20,16 +20,15 @@ public class DegreeController {
         this.repository = repository;
     }
 
-    @GetMapping
-    public List<Degree> getDegrees() {
-        return repository.findAll();
-    }
     @GetMapping("/{id}")
     public Degree getDegree(@PathVariable String id) {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
     @RequestMapping
     public List<Degree> getDegrees(@RequestParam Map<String, String> params) {
+        if (params.containsKey("degree-type") && params.containsKey("department")) {
+            return (repository.findDegreesByDepartmentAndDegreeType(params.get("department"), Degree.DEGREETYPE.valueOf(params.get("degree-type"))));
+        }
         if (params.containsKey("degree-type")) {
             return (repository.findDegreesByDegreeType(Degree.DEGREETYPE.valueOf(params.get("degree-type"))));
         }

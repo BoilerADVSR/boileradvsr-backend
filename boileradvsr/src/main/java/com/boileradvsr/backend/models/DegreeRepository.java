@@ -5,8 +5,9 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface DegreeRepository extends MongoRepository<Degree, String> {
-    Degree findDegreeByDegreeTitle(String degreeTitle);
-    List<Degree> findDegreesByCollege(String college);
-    List<Degree> findDegreesByDepartment(String department);
-    List<Degree> findDegreesByDegreeType(Degree.DEGREETYPE degreetype);
+    public Degree findDegreeByDegreeTitle(String degreeTitle);
+    public List<Degree> findDegreesByCollege(String college);
+    public List<Degree> findDegreesByDepartment(String department);
+    public List<Degree> findDegreesByDegreeType(Degree.DEGREETYPE degreetype);
+    public List<Degree> findDegreesByDepartmentAndDegreeType(String department, Degree.DEGREETYPE degreetype);
 }

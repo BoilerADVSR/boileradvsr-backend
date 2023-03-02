@@ -1,9 +1,6 @@
 package com.boileradvsr.backend;
 
-import com.boileradvsr.backend.models.Course;
-import com.boileradvsr.backend.models.CourseRepository;
-import com.boileradvsr.backend.models.Student;
-import com.boileradvsr.backend.models.StudentRepository;
+import com.boileradvsr.backend.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +16,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private StudentRepository studentRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private DegreeRepository degreeRepository;
 
 
     public static void main(String[] args) {
@@ -29,8 +28,12 @@ public class BoileradvsrApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         studentRepository.deleteAll();
         courseRepository.deleteAll();
+        degreeRepository.deleteAll();
         studentRepository.save(new Student("Garrett", "O'Brien", "g@purdue.edu", "pw"));
         studentRepository.save(new Student("Brandon", "hart", "b@purdue.edu", "pw"));
+        degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science"));
+        degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
+        degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Mathematics", "Science", "Math"));
 
         Course cs180 = new Course("CS", "180", "Object-Oriented Programming", "Computer Science", "Science");
         Course cs250 = new Course("CS", "250", "Computer Architecture", "Computer Science", "Science");
