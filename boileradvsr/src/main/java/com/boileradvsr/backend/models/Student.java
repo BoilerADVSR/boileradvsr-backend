@@ -120,4 +120,19 @@ public class Student {
         this.academicAdvisors = academicAdvisors;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", graduationSemester=" + graduationSemester +
+                ", GPA=" + GPA +
+                ", semesters=" + semesters +
+                ", degrees=" + degrees +
+                ", planOfStudy=" + planOfStudy +
+                ", academicAdvisors=" + academicAdvisors +
+                '}';
+    }
 }
