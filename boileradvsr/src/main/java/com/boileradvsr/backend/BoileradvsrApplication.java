@@ -35,18 +35,18 @@ public class BoileradvsrApplication implements CommandLineRunner {
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Mathematics", "Science", "Math"));
 
-        Course cs180 = new Course("CS", "180", "Object-Oriented Programming", "Computer Science", "Science");
-        Course cs182 = new Course("CS", "182", "Discrete Mathematics", "Computer Science", "Science");
-        Course cs250 = new Course("CS", "250", "Computer Architecture", "Computer Science", "Science");
-        Course cs251 = new Course("CS", "251", "Data Structures and Algorithms", "Computer Science", "Science");
-        Course cs252 = new Course("CS", "252", "Systems Programming", "Computer Science", "Science");
-        Course cs307 = new Course("CS", "307", "Software Engineering", "Computer Science", "Science");
-        Course cs352 = new Course("CS", "352", "Compilers", "Computer Science", "Science");
-        Course cs354 = new Course("CS", "354", "Operating Systems", "Computer Science", "Science");
-        Course cs381 = new Course("CS", "381", "Intro Analysis Algor", "Computer Science", "Science");
-        Course ma261 = new Course("MA", "261", "Multivariate Calculus", "Math", "Science");
-        Course ma265 = new Course("MA", "265", "Linear Algebra", "Math", "Science");
-        Course ma351 = new Course("MA", "351", "Elementary Linear Algebra", "Math", "Science");
+        Course cs180 = new Course("CS", "18000", "Object-Oriented Programming", "Computer Science", "Science");
+        Course cs182 = new Course("CS", "18200", "Discrete Mathematics", "Computer Science", "Science");
+        Course cs250 = new Course("CS", "25000", "Computer Architecture", "Computer Science", "Science");
+        Course cs251 = new Course("CS", "25100", "Data Structures and Algorithms", "Computer Science", "Science");
+        Course cs252 = new Course("CS", "25200", "Systems Programming", "Computer Science", "Science");
+        Course cs307 = new Course("CS", "30700", "Software Engineering", "Computer Science", "Science");
+        Course cs352 = new Course("CS", "35200", "Compilers", "Computer Science", "Science");
+        Course cs354 = new Course("CS", "35400", "Operating Systems", "Computer Science", "Science");
+        Course cs381 = new Course("CS", "38100", "Intro Analysis Algor", "Computer Science", "Science");
+        Course ma261 = new Course("MA", "26100", "Multivariate Calculus", "Math", "Science");
+        Course ma265 = new Course("MA", "26500", "Linear Algebra", "Math", "Science");
+        Course ma351 = new Course("MA", "35100", "Elementary Linear Algebra", "Math", "Science");
 
 
         Requirement csLinearAlgebra = new Requirement("Linear Algebra");
@@ -67,11 +67,11 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
 
 
-        for (Course course : courseRepository.findCoursesByCourseIdDepartment("CS")) {
+        /*for (Course course : courseRepository.findCoursesByCourseIdDepartment("CS")) {
             System.out.println(course.getCourseID());
-        }
+        }*/
 
-        System.out.println(courseRepository.findCourseByCourseID("MA351").getDepartment());
+        //System.out.println(courseRepository.findCourseByCourseID("MA351").getDepartment());
 
         System.out.println("running");
 
