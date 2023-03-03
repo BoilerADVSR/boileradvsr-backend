@@ -90,4 +90,29 @@ public class Degree {
     public ArrayList<Degree> getAvailableSpecializations() {
         return(specializationsAvailable);
     }
+
+    @Override
+    public String toString() {
+        return "Degree{" +
+                "degreeType=" + degreeType +
+                ", degreeTitle='" + degreeTitle + '\'' +
+                ", college='" + college + '\'' +
+                ", department='" + department + '\'' +
+                ", requirements=" + requirements +
+                ", specializationsAvailable=" + specializationsAvailable +
+                ", specializationsSelected=" + specializationsSelected +
+                '}';
+    }
+
+    public void setRequirements(ArrayList<Requirement> requirements) {
+        this.requirements = requirements;
+    }
+
+    public void setSpecializationsAvailable(ArrayList<Degree> specializationsAvailable) {
+        this.specializationsAvailable = specializationsAvailable;
+    }
+
+    public void setSpecializationsSelected(ArrayList<Degree> specializationsSelected) {
+        this.specializationsSelected = specializationsSelected;
+    }
 }

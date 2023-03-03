@@ -2,7 +2,7 @@ package com.boileradvsr.backend.models;
 import java.util.ArrayList;
 
 public class Semester {
-    enum Season {
+    public enum Season {
         FALL,
         SPRING,
         SUMMER
@@ -17,6 +17,13 @@ public class Semester {
         this.season = season;
         this.courses = courses;
     }
+    public Semester(int year, Season season) {
+        this.year = year;
+        this.season = season;
+        courses = new ArrayList<>();
+    }
+
+    public Semester() {}
 
 
     public void addCourse(Course course) {
@@ -55,5 +62,14 @@ public class Semester {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public String toString() {
+        return "Semester{" +
+                "year=" + year +
+                ", season=" + season +
+                ", courses=" + courses +
+                '}';
     }
 }

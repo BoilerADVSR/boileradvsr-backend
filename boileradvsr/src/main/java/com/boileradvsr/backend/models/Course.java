@@ -134,6 +134,36 @@ public class Course {
         this.department = department;
     }
 
+    public ArrayList<Integer> getRatings() {
+        return ratings;
+    }
 
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
 
+    public void setRatings(ArrayList<Integer> ratings) {
+        this.ratings = ratings;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID='" + courseID + '\'' +
+                ", courseIdDepartment='" + courseIdDepartment + '\'' +
+                ", courseIdNumber='" + courseIdNumber + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", department='" + department + '\'' +
+                ", college='" + college + '\'' +
+                ", ratings=" + ratings +
+                ", averageRating=" + averageRating +
+                ", averageGPA=" + averageGPA +
+                ", grade=" + grade +
+                ", reviews=" + reviews +
+                '}';
+    }
 }

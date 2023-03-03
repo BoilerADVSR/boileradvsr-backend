@@ -1,7 +1,6 @@
 package com.boileradvsr.backend.controllers;
 
-import com.boileradvsr.backend.models.Student;
-import com.boileradvsr.backend.models.StudentRepository;
+import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.coyote.Response;
 import org.apache.el.stream.Optional;
@@ -29,7 +28,6 @@ public class StudentController {
 
     @GetMapping
     public List<Student> getStudents() {
-        System.out.println("1324");
         return repository.findAll();
     }
 
@@ -51,6 +49,30 @@ public class StudentController {
             return (s);
         }
     }
+
+    @GetMapping("/{id}/plan")
+    public PlanOfStudy plan(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        return s.getPlanOfStudy();
+    }
+
+    @PostMapping("/{id}/plan/addcourse")
+    public ResponseEntity addCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
+        int year = Integer.parseInt(objectNode.get("year").asText());
+        Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText());
+        String courseIdDepartment = objectNode.get("courseIdDepartment").asText();
+        String courseIdNumber = objectNode.get("courseIdNumber").asText();
+        String courseTitle = objectNode.get("courseTitle").asText();
+        String department = objectNode.get("department").asText();
+        String college = objectNode.get("college").asText();
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
+        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college));
+        repository.save(student);
+        return ResponseEntity.ok(student);
+
+    }
+
 
     @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
