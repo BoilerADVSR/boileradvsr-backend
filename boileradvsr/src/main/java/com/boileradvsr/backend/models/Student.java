@@ -23,6 +23,9 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        semesters = new ArrayList<>();
+        academicAdvisors = new ArrayList<>();
+        degrees = new ArrayList<>();
     }
 
     public void updateEmail(String email) {
@@ -116,4 +119,5 @@ public class Student {
     public void setAcademicAdvisors(ArrayList<Advisor> academicAdvisors) {
         this.academicAdvisors = academicAdvisors;
     }
+
 }

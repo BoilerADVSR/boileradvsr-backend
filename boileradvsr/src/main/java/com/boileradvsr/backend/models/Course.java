@@ -3,17 +3,18 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.List;
+
 @Document(collection = "courseCatalog")
 public class Course {
     @Id
-    public String id;
-
     public String courseID;
     private String courseIdDepartment;
     private String courseIdNumber;
     private String courseTitle;
     private String department;
     private String college;
+    private ArrayList<Integer> ratings;
     private double averageRating;
     private double averageGPA;
     private Grade grade;
@@ -32,14 +33,13 @@ public class Course {
         this.courseTitle = courseTitle;
         this.department = department;
         this.college = college;
+        ratings = new ArrayList<Integer>();
+        //TODO needs fixing (set a default rating)
+        averageRating = 5;
 
     }
 
-    //Database course constructer
-    public Course() {}
-
-
-    //needs implementation
+    //TODO needs to be fixed *maybe(currently bad)
     public boolean equals (Course comparison) {
         if (!courseIdDepartment.equals(comparison.getCourseIdDepartment())) return false;
         if (!courseIdNumber.equals(comparison.getCourseIdNumber())) return false;
@@ -105,4 +105,35 @@ public class Course {
     public String getCourseID() {
         return courseID;
     }
+
+    public void setAverageGPA(double averageGPA) {
+        this.averageGPA = averageGPA;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public void setCourseIdNumber(String courseIdNumber) {
+        this.courseIdNumber = courseIdNumber;
+    }
+
+    public void setCourseIdDepartment(String courseIdDepartment) {
+        this.courseIdDepartment = courseIdDepartment;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+
+
 }
