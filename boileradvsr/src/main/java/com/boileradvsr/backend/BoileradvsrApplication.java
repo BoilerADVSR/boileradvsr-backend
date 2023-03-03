@@ -67,7 +67,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
 
 
-        for (Course course : courseRepository.findByCourseIdDepartment("CS")) {
+        for (Course course : courseRepository.findCoursesByCourseIdDepartment("CS")) {
             System.out.println(course.getCourseID());
         }
 

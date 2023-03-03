@@ -31,7 +31,7 @@ public class CourseController {
     @RequestMapping
     public List<Course> getCourses(@RequestParam Map<String, String> params) {
         if (params.containsKey("department")) {
-            return (repository.findByCourseIdDepartment(params.get("department")));
+            return (repository.findCoursesByCourseIdDepartment(params.get("department")));
         }
         if (params.containsKey("avg-gpa")) {
             return (repository.findCoursesByAverageGPAGreaterThanEqualOrderByAverageGPADesc(Double.parseDouble(params.get("avg-gpa"))));
