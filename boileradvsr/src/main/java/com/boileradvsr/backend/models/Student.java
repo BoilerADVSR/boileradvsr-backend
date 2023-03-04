@@ -2,6 +2,7 @@ package com.boileradvsr.backend.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Document(collection = "students")
@@ -17,6 +18,7 @@ public class Student {
     ArrayList<Degree> degrees;
     PlanOfStudy planOfStudy;
     ArrayList<Advisor> academicAdvisors;
+    ArrayList<Review> reviews;
 
     public Student(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -26,6 +28,7 @@ public class Student {
         semesters = new ArrayList<>();
         academicAdvisors = new ArrayList<>();
         degrees = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     public void updateEmail(String email) {
@@ -120,6 +123,18 @@ public class Student {
         this.academicAdvisors = academicAdvisors;
     }
 
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -133,6 +148,7 @@ public class Student {
                 ", degrees=" + degrees +
                 ", planOfStudy=" + planOfStudy +
                 ", academicAdvisors=" + academicAdvisors +
+                ", reviews=" + reviews +
                 '}';
     }
 }

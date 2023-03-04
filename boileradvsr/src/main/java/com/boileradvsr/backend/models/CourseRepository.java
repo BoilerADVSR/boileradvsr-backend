@@ -11,4 +11,5 @@ public interface CourseRepository extends MongoRepository<Course, String> {
     public List<Course> findCoursesByCourseIdDepartment(String department);
     public List<Course> findCoursesByAverageGPAGreaterThanEqualOrderByAverageGPADesc(double averageGPA);
     public List<Course> findCoursesByAverageRatingOrderByAverageRatingDesc(double rating);
+
 }

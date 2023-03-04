@@ -70,8 +70,8 @@ public class StudentController {
         semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college));
         repository.save(student);
         return ResponseEntity.ok(student);
-
     }
+
 
 
     @PostMapping

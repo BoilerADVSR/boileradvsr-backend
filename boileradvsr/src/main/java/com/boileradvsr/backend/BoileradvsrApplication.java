@@ -18,6 +18,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private CourseRepository courseRepository;
     @Autowired
     private DegreeRepository degreeRepository;
+    @Autowired
+    private ProfessorRepository professorRepository;
 
 
     public static void main(String[] args) {
@@ -29,6 +31,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         studentRepository.deleteAll();
         courseRepository.deleteAll();
         degreeRepository.deleteAll();
+        professorRepository.deleteAll();
         studentRepository.save(new Student("Brandon", "hart", "b@purdue.edu", "pw"));
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
@@ -52,6 +55,13 @@ public class BoileradvsrApplication implements CommandLineRunner {
         csLinearAlgebra.addCourse(ma265);
         csLinearAlgebra.addCourse(ma351);
         Requirement csMultivariate = new Requirement("Multivariate Calculus", ma261);
+
+        compsci.addRequirement(new Requirement("Software Engineering", cs307));
+        compsci.addRequirement(new Requirement("Discrete Mathematics", cs182));
+        compsci.addRequirement(new Requirement("Data Structures and Algorithms", cs251));
+        compsci.addRequirement(new Requirement("Systems Programming", cs252));
+        compsci.addRequirement(new Requirement("Computer Architecture", cs250));
+
         compsci.addRequirement(csLinearAlgebra);
         compsci.addRequirement(csMultivariate);
 
@@ -71,6 +81,12 @@ public class BoileradvsrApplication implements CommandLineRunner {
         gpos.addDegree(compsci);
         g.setPlanOfStudy(gpos);
         studentRepository.save(g);
+
+        Professor turkstra = new Professor("Jeff", "Turkstra", "Computer Science");
+
+        turkstra.addCourse(cs307);
+        professorRepository.save(turkstra);
+
 
 
 

@@ -34,6 +34,7 @@ public class Course {
         this.department = department;
         this.college = college;
         ratings = new ArrayList<Integer>();
+        reviews = new ArrayList<>();
         //TODO needs fixing (set a default rating)
         averageRating = 5;
 

@@ -1,8 +1,8 @@
 package com.boileradvsr.backend.controllers;
 
-import com.boileradvsr.backend.models.Course;
-import com.boileradvsr.backend.models.CourseRepository;
-import com.boileradvsr.backend.models.Degree;
+import com.boileradvsr.backend.models.*;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,9 @@ import java.util.Map;
 @EnableMongoRepositories
 @RequestMapping("/courses")
 public class CourseController {
+    @Autowired
+    StudentController studentController;
+
     public CourseRepository repository;
 
     public CourseController(CourseRepository repository) {
@@ -46,15 +49,28 @@ public class CourseController {
     public Course getCourse(@PathVariable String id) {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
+
     @PostMapping
     public ResponseEntity createCourse(@RequestBody Course course) throws URISyntaxException {
         Course savedCourse = repository.save(course);
         return ResponseEntity.created(new URI("/courses/" + savedCourse.getCourseID())).body(savedCourse);
     }
 
+    @PutMapping("/{id}/addreview")
+    public ResponseEntity<Course> addReview(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
+        String studentId = objectNode.get("studentId").asText();
+        String reviewText = objectNode.get("reviewText").asText();
+        Student student = studentController.getStudent(studentId);
+        Course course = repository.findById(id).orElseThrow(RuntimeException::new);
+        Review review = new Review(course, student, reviewText);
+        course.addReview(review);
+        student.addReview(review);
+        return ResponseEntity.ok(course);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity updateCourse(@PathVariable String courseId, @RequestBody Course course) {
-        Course currentCourse = repository.findCourseByCourseID(courseId);
+    public ResponseEntity updateCourse(@PathVariable String id, @RequestBody Course course) {
+        Course currentCourse = repository.findCourseByCourseID(id);
         currentCourse.setCollege(course.getCollege());
         currentCourse.setCourseTitle(course.getCourseTitle());
         currentCourse.setDepartment(course.getDepartment());

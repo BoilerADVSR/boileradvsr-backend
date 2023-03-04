@@ -35,11 +35,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/CourseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Professor.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Professor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Review.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/StudentRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

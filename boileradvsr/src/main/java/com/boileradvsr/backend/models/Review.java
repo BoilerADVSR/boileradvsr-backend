@@ -8,7 +8,7 @@ public class Review {
     Professor professor;
     double overallRating;
     String reviewText;
-    Date dateOfReview;
+    //Date dateOfReview;
 
     public Review(Course course, Student studentReviewer, Professor professor, double overallRating) {
         this.course = course;
@@ -18,14 +18,20 @@ public class Review {
 
     }
 
-    public Review(Course course, Student studentReviewer, Professor professor, String reviewText) {
+    public Review(Course course, Student studentReviewer, String reviewText) {
         this.course = course;
         this.studentReviewer = studentReviewer;
-        this.professor = professor;
         this.reviewText = reviewText;
-
-
     }
+
+    public Review(Course course, Student studentReviewer, double overallRating) {
+        this.course = course;
+        this.studentReviewer = studentReviewer;
+        this.overallRating = overallRating;
+    }
+
+
+
 
     //TODO need to add student equals;
     public boolean equals(Review comparison) {
