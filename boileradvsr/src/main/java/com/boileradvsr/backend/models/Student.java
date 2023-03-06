@@ -20,6 +20,9 @@ public class Student {
     ArrayList<Advisor> academicAdvisors;
     ArrayList<Review> reviews;
 
+    public Student() {
+    }
+
     public Student(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;

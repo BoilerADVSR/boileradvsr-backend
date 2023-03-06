@@ -7,6 +7,9 @@ import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Console;
@@ -20,7 +23,11 @@ import java.util.Map;
 @EnableMongoRepositories
 @RequestMapping("/students")
 public class StudentController {
-    public StudentRepository repository;
+    @Autowired
+    private StudentRepository repository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public StudentController(StudentRepository repository) {
         this.repository = repository;
@@ -36,19 +43,39 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/login")
-    public Student login(@RequestBody ObjectNode objectNode) {
-        String email = objectNode.get("email").asText();
-        String password = objectNode.get("password").asText();
+    @PostMapping("/login")
+    private ResponseEntity<?> login(@RequestBody ObjectNode objectNode) {
 
-        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
+        String username = objectNode.get("email").asText();
+        String password = objectNode.get("password").asText();
+        Student s = repository.findById(username).orElseThrow(RuntimeException::new);
         String dbPassword = s.getPassword();
         if (!dbPassword.equals(password)) {
             throw new RuntimeException();
         } else {
-            return (s);
+
+            try {
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            } catch (Exception e) {
+                return ResponseEntity.ok(new AuthReponse("Error logging in" + username));
+            }
+            return ResponseEntity.ok(new AuthReponse("Successful Login for user" + username));
         }
     }
+
+//    @GetMapping("/login")
+//    public Student login(@RequestBody ObjectNode objectNode) {
+//        String email = objectNode.get("email").asText();
+//        String password = objectNode.get("password").asText();
+//
+//        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
+//        String dbPassword = s.getPassword();
+//        if (!dbPassword.equals(password)) {
+//            throw new RuntimeException();
+//        } else {
+//            return (s);
+//        }
+//    }
 
     @GetMapping("/{id}/plan")
     public PlanOfStudy plan(@PathVariable String id) {
@@ -71,14 +98,27 @@ public class StudentController {
         repository.save(student);
         return ResponseEntity.ok(student);
     }
-
-
-
-    @PostMapping
-    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
-        Student savedStudent = repository.save(student);
-        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+    @PostMapping("/register")
+    private ResponseEntity<?> register(@RequestBody AuthRequest ar) {
+        String username = ar.getUsername();
+        String password = ar.getPassword();
+        Student student = new Student();
+        student.setEmail(username);
+        student.setPassword(password);
+        try{
+            repository.save(student);
+        } catch (Exception e) {
+            return ResponseEntity.ok(new AuthReponse("User already exists" + username));
+        }
+        return ResponseEntity.ok(new AuthReponse("Student account created successfully" + username));
     }
+
+
+//    @PostMapping
+//    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
+//        Student savedStudent = repository.save(student);
+//        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudent(@PathVariable String id) {
