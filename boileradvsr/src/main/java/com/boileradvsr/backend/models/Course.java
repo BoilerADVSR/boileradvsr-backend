@@ -40,6 +40,8 @@ public class Course {
 
     }
 
+    public Course() {};
+
     //TODO needs to be fixed *maybe(currently bad)
     public boolean equals (Course comparison) {
         if (!courseIdDepartment.equals(comparison.getCourseIdDepartment())) return false;

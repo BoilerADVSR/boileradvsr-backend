@@ -1,32 +1,39 @@
 package com.boileradvsr.backend.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-
+@Document(collection = "reviews")
 public class Review {
-    Student studentReviewer;
-    Professor professor;
+    String studentReviewer;
+    String professor;
+    String course;
     double overallRating;
     String reviewText;
     //Date dateOfReview;
 
-    public Review(Student studentReviewer, Professor professor, double overallRating) {
+    public Review(String studentReviewer, String course, String professor, double overallRating) {
         this.studentReviewer = studentReviewer;
         this.professor = professor;
         this.overallRating = overallRating;
 
     }
 
-    public Review(Student studentReviewer, String reviewText) {
+    public Review(String studentReviewer, String course, String reviewText) {
         this.studentReviewer = studentReviewer;
         this.reviewText = reviewText;
+        this.course = course;
+        overallRating = -1;
     }
 
-    public Review(Student studentReviewer, double overallRating) {
+    public Review(String studentReviewer, String course, double overallRating) {
+        this.course = course;
         this.studentReviewer = studentReviewer;
         this.overallRating = overallRating;
     }
+
+    public Review() {};
 
 
 
@@ -47,7 +54,28 @@ public class Review {
         return overallRating;
     }
 
-    public Student getStudentReviewer() {
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setOverallRating(double overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
+    public void setReviewText(String reviewText) {
+        this.reviewText = reviewText;
+    }
+
+    public void setStudentReviewer(String studentReviewer) {
+        this.studentReviewer = studentReviewer;
+    }
+
+    public String getStudentReviewer() {
         return studentReviewer;
     }
+
 }
