@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Console;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +71,17 @@ public class StudentController {
         semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college));
         repository.save(student);
         return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("/{id}/plan/courses")
+    public ArrayList<Course> coursesTaken(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        return s.getPlanOfStudy().getCoursesTaken();
+    }
+    @GetMapping("/{id}/plan/requirements")
+    public ArrayList<Requirement> requirementsLeft(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        return s.getPlanOfStudy().requirementsLeft();
     }
 
 
