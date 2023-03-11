@@ -58,15 +58,16 @@ public class CourseController {
 
     @PutMapping("/{id}/addreview")
     public ResponseEntity<Course> addReview(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
-        String studentId = objectNode.get("studentId").asText();
+        String studentId = objectNode.get("studentID").asText();
         String reviewText = objectNode.get("reviewText").asText();
+        String courseID = objectNode.get("courseID").asText();
         Student student = studentController.getStudent(studentId);
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
-        Review review = new Review(student, reviewText);
+        Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText);
         course.addReview(review);
         student.addReview(review);
         repository.save(course);
-        //studentController.createStudent(student);
+        studentController.createStudent(student);
         return ResponseEntity.ok(course);
     }
 
