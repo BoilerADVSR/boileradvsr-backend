@@ -62,9 +62,11 @@ public class CourseController {
         String reviewText = objectNode.get("reviewText").asText();
         Student student = studentController.getStudent(studentId);
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
-        Review review = new Review(course, student, reviewText);
+        Review review = new Review(student, reviewText);
         course.addReview(review);
         student.addReview(review);
+        repository.save(course);
+        //studentController.createStudent(student);
         return ResponseEntity.ok(course);
     }
 

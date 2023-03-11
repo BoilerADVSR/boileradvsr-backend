@@ -1,31 +1,29 @@
 package com.boileradvsr.backend.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
 public class Review {
-    Course course;
     Student studentReviewer;
     Professor professor;
     double overallRating;
     String reviewText;
     //Date dateOfReview;
 
-    public Review(Course course, Student studentReviewer, Professor professor, double overallRating) {
-        this.course = course;
+    public Review(Student studentReviewer, Professor professor, double overallRating) {
         this.studentReviewer = studentReviewer;
         this.professor = professor;
         this.overallRating = overallRating;
 
     }
 
-    public Review(Course course, Student studentReviewer, String reviewText) {
-        this.course = course;
+    public Review(Student studentReviewer, String reviewText) {
         this.studentReviewer = studentReviewer;
         this.reviewText = reviewText;
     }
 
-    public Review(Course course, Student studentReviewer, double overallRating) {
-        this.course = course;
+    public Review(Student studentReviewer, double overallRating) {
         this.studentReviewer = studentReviewer;
         this.overallRating = overallRating;
     }
@@ -35,16 +33,12 @@ public class Review {
 
     //TODO need to add student equals;
     public boolean equals(Review comparison) {
-        if (!course.equals(comparison.getCourse())) return false;
         if (!reviewText.equals(comparison.getReviewText())) return false;
         if (!(overallRating == comparison.getOverallRating())) return false;
         
         return true;
     }
 
-    public Course getCourse() {
-        return course;
-    }
 
     public String getReviewText() {
         return reviewText;
@@ -53,4 +47,7 @@ public class Review {
         return overallRating;
     }
 
+    public Student getStudentReviewer() {
+        return studentReviewer;
+    }
 }
