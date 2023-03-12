@@ -99,20 +99,19 @@ public class StudentController {
         repository.save(student);
         return ResponseEntity.ok(student);
     }
-    @PostMapping("/register")
-    private ResponseEntity<?> register(@RequestBody AuthRequest ar) {
-        String username = ar.getUsername();
-        String password = ar.getPassword();
-        Student student = new Student();
-        student.setEmail(username);
-        student.setPassword(password);
-        try{
-            repository.save(student);
-        } catch (Exception e) {
-            return ResponseEntity.ok(new AuthReponse("User already exists" + username));
-        }
-        return ResponseEntity.ok(new AuthReponse("Student account created successfully" + username));
-    }
+//    @PostMapping("/register")
+//    private ResponseEntity<?> register(@RequestBody AuthRequest ar) {
+//        String username = ar.getUsername();
+//        String password = ar.getPassword();
+//        student.setEmail(username);
+//        student.setPassword(password);
+//        try{
+//            repository.save(student);
+//        } catch (Exception e) {
+//            return ResponseEntity.ok(new AuthReponse("User already exists" + username));
+//        }
+//        return ResponseEntity.ok(new AuthReponse("Student account created successfully" + username));
+//    }
 
     @GetMapping("/{id}/plan/courses")
     public ArrayList<Course> coursesTaken(@PathVariable String id) {
