@@ -14,8 +14,6 @@ public class Student {
     String password;
     Semester graduationSemester;
     double GPA;
-    ArrayList<Semester> semesters;
-    ArrayList<Degree> degrees;
     PlanOfStudy planOfStudy;
     ArrayList<Advisor> academicAdvisors;
     ArrayList<Review> reviews;
@@ -28,31 +26,15 @@ public class Student {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        semesters = new ArrayList<>();
         academicAdvisors = new ArrayList<>();
-        degrees = new ArrayList<>();
         reviews = new ArrayList<>();
-    }
-
-    public void updateEmail(String email) {
-        this.email = email;
+        this.GPA = 0;
     }
 
     public void setGPA(double GPA) {
         this.GPA = GPA;
     }
 
-    public ArrayList<Semester> getSemesters() {
-        return(semesters);
-    }
-
-    public void addSemester(Semester semester) {
-        semesters.add(semester);
-    }
-
-    public void addDegree(Degree degree) {
-        degrees.add(degree);
-    }
 
     public String getFirstName() {
         return firstName;
@@ -98,17 +80,7 @@ public class Student {
         return GPA;
     }
 
-    public void setSemesters(ArrayList<Semester> semesters) {
-        this.semesters = semesters;
-    }
 
-    public ArrayList<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(ArrayList<Degree> degrees) {
-        this.degrees = degrees;
-    }
 
     public PlanOfStudy getPlanOfStudy() {
         return planOfStudy;
@@ -138,6 +110,7 @@ public class Student {
         reviews.add(review);
     }
 
+
     @Override
     public String toString() {
         return "Student{" +
@@ -147,8 +120,6 @@ public class Student {
                 ", password='" + password + '\'' +
                 ", graduationSemester=" + graduationSemester +
                 ", GPA=" + GPA +
-                ", semesters=" + semesters +
-                ", degrees=" + degrees +
                 ", planOfStudy=" + planOfStudy +
                 ", academicAdvisors=" + academicAdvisors +
                 ", reviews=" + reviews +

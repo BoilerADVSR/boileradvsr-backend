@@ -11,16 +11,19 @@ public class Semester {
     int year;
     Season season;
     ArrayList<Course> courses;
+    double gpa;
 
     public Semester(int year, Season season, ArrayList<Course> courses) {
         this.year = year;
         this.season = season;
         this.courses = courses;
+        calculateGPA();
     }
     public Semester(int year, Season season) {
         this.year = year;
         this.season = season;
         courses = new ArrayList<>();
+        gpa = 0.0;
     }
 
     public Semester() {}
@@ -28,6 +31,14 @@ public class Semester {
 
     public void addCourse(Course course) {
         courses.add(course);
+        calculateGPA();
+    }
+
+    public void calculateGPA() {
+        double gpas = 0.0;
+        for (Course course : courses) gpas += course.getGrade().getGpaValue();
+        gpas /= courses.size();
+        gpa = gpas;
     }
 
     public ArrayList<Course> getCourses() {
@@ -62,6 +73,14 @@ public class Semester {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void setGpa(double gpa) {
+        this.gpa = gpa;
+    }
+
+    public double getGpa() {
+        return gpa;
     }
 
     @Override
