@@ -17,7 +17,7 @@ public class Semester {
         this.year = year;
         this.season = season;
         this.courses = courses;
-        gpa = 0.0;
+        calculateGPA();
     }
     public Semester(int year, Season season) {
         this.year = year;
@@ -31,6 +31,14 @@ public class Semester {
 
     public void addCourse(Course course) {
         courses.add(course);
+        calculateGPA();
+    }
+
+    public void calculateGPA() {
+        double gpas = 0.0;
+        for (Course course : courses) gpas += course.getGrade().getGpaValue();
+        gpas /= courses.size();
+        gpa = gpas;
     }
 
     public ArrayList<Course> getCourses() {

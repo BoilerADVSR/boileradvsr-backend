@@ -13,9 +13,19 @@ public class Grade {
         this.gradesAndValues = gradesAndValues;
     }
 
+    public Grade(double gpaValue) {
+        this.gpaValue = gpaValue;
+    }
+
     public HashMap<String, Double> getGradesAndValues() {
         return(gradesAndValues);
     }
 
+    public double getGpaValue() {
+        return gpaValue;
+    }
 
+    public String getLetterGrade() {
+        return letterGrade;
+    }
 }
