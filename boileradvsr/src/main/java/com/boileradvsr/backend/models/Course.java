@@ -14,7 +14,6 @@ public class Course {
     private String courseTitle;
     private String department;
     private String college;
-    private ArrayList<Integer> ratings;
     private double averageRating;
     private double averageGPA;
     private Grade grade;
@@ -33,7 +32,6 @@ public class Course {
         this.courseTitle = courseTitle;
         this.department = department;
         this.college = college;
-        ratings = new ArrayList<Integer>();
         reviews = new ArrayList<>();
         //TODO needs fixing (set a default rating)
         averageRating = 5;
@@ -56,6 +54,20 @@ public class Course {
 
     public void addReview(Review review) {
         reviews.add(review);
+            calculateRating();
+    }
+
+    public void calculateRating() {
+        double rating = 0.0;
+        int ratings = 0;
+        for (Review review : reviews) {
+            if (review.getOverallRating() != -1) {
+                rating += review.getOverallRating();
+                ratings++;
+            }
+        }
+        rating /= ratings;
+        averageRating = rating;
     }
 
     public boolean deleteReview(Review review) {
@@ -137,17 +149,11 @@ public class Course {
         this.department = department;
     }
 
-    public ArrayList<Integer> getRatings() {
-        return ratings;
-    }
 
     public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 
-    public void setRatings(ArrayList<Integer> ratings) {
-        this.ratings = ratings;
-    }
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
@@ -162,7 +168,6 @@ public class Course {
                 ", courseTitle='" + courseTitle + '\'' +
                 ", department='" + department + '\'' +
                 ", college='" + college + '\'' +
-                ", ratings=" + ratings +
                 ", averageRating=" + averageRating +
                 ", averageGPA=" + averageGPA +
                 ", grade=" + grade +
