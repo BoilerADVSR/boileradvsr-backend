@@ -4,6 +4,7 @@ import com.boileradvsr.backend.configurations.JwtService;
 import com.boileradvsr.backend.models.Student;
 import com.boileradvsr.backend.models.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ public class AuthService {
 
     private final StudentRepository studentRepository;
     private final JwtService jwtService;
+
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request) {
@@ -38,7 +40,7 @@ public class AuthService {
                         request.getPassword()
                 )
         );
-        var student = studentRepository.findById(request.getEmail()).orElseThrow();
+        var student = studentRepository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(student);
         return AuthenticationResponse.builder()
                 .token(jwtToken)

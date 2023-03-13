@@ -35,19 +35,20 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/login")
-    public Student login(@RequestBody ObjectNode objectNode) {
-        String email = objectNode.get("email").asText();
-        String password = objectNode.get("password").asText();
 
-        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
-        String dbPassword = s.getPassword();
-        if (!dbPassword.equals(password)) {
-            throw new RuntimeException();
-        } else {
-            return (s);
-        }
-    }
+//    @GetMapping("/login")
+//    public Student login(@RequestBody ObjectNode objectNode) {
+//        String email = objectNode.get("email").asText();
+//        String password = objectNode.get("password").asText();
+//
+//        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
+//        String dbPassword = s.getPassword();
+//        if (!dbPassword.equals(password)) {
+//            throw new RuntimeException();
+//        } else {
+//            return (s);
+//        }
+//    }
 
     @GetMapping("/{id}/plan")
     public PlanOfStudy plan(@PathVariable String id) {
@@ -84,11 +85,11 @@ public class StudentController {
 
 
 
-    @PostMapping
-    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
-        Student savedStudent = repository.save(student);
-        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
-    }
+//    @PostMapping
+//    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
+//        Student savedStudent = repository.save(student);
+//        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+//    }
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
