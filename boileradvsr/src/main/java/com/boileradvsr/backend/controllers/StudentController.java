@@ -2,30 +2,28 @@ package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.coyote.Response;
-import org.apache.el.stream.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @RestController
 @EnableMongoRepositories
 @RequestMapping("/students")
+@RequiredArgsConstructor
 public class StudentController {
+
     public StudentRepository repository;
 
-    public StudentController(StudentRepository repository) {
-        this.repository = repository;
-    }
+
+
+    private final AuthService service;
 
     @GetMapping
     public List<Student> getStudents() {
@@ -37,19 +35,20 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/login")
-    public Student login(@RequestBody ObjectNode objectNode) {
-        String email = objectNode.get("email").asText();
-        String password = objectNode.get("password").asText();
 
-        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
-        String dbPassword = s.getPassword();
-        if (!dbPassword.equals(password)) {
-            throw new RuntimeException();
-        } else {
-            return (s);
-        }
-    }
+//    @GetMapping("/login")
+//    public Student login(@RequestBody ObjectNode objectNode) {
+//        String email = objectNode.get("email").asText();
+//        String password = objectNode.get("password").asText();
+//
+//        Student s = repository.findById(email).orElseThrow(RuntimeException::new);
+//        String dbPassword = s.getPassword();
+//        if (!dbPassword.equals(password)) {
+//            throw new RuntimeException();
+//        } else {
+//            return (s);
+//        }
+//    }
 
     @GetMapping("/{id}/plan")
     public PlanOfStudy plan(@PathVariable String id) {
@@ -86,10 +85,24 @@ public class StudentController {
 
 
 
-    @PostMapping
-    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
-        Student savedStudent = repository.save(student);
-        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+//    @PostMapping
+//    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
+//        Student savedStudent = repository.save(student);
+//        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+//    }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(
+        @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(
+            @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(service.login(request));
     }
 
     @DeleteMapping("/{id}")
