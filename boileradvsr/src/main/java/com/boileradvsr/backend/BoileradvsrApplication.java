@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 @EnableMongoRepositories
 
@@ -20,6 +22,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private DegreeRepository degreeRepository;
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private DegreeGraphRepository degreeGraphRepository;
 
 
     public static void main(String[] args) {
@@ -39,6 +43,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
         Course cs180 = new Course("CS", "180", "Object-Oriented Programming", "Computer Science", "Science");
         Course cs182 = new Course("CS", "182", "Discrete Mathematics", "Computer Science", "Science");
+        Course cs240 = new Course("CS", "240", "C Programming", "Computer Science", "Science");
         Course cs250 = new Course("CS", "250", "Computer Architecture", "Computer Science", "Science");
         Course cs251 = new Course("CS", "251", "Data Structures and Algorithms", "Computer Science", "Science");
         Course cs252 = new Course("CS", "252", "Systems Programming", "Computer Science", "Science");
@@ -64,7 +69,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
         compsci.addRequirement(csLinearAlgebra);
         compsci.addRequirement(csMultivariate);
-
+        courseRepository.save(cs240);
         courseRepository.save(cs180);
         courseRepository.save(cs182);
         courseRepository.save(cs250);
@@ -87,6 +92,30 @@ public class BoileradvsrApplication implements CommandLineRunner {
         turkstra.addCourse(cs307);
         professorRepository.save(turkstra);
 
+        ArrayList<String> classes = new ArrayList<>();
+        classes.add("CS180");
+        classes.add("CS182");
+        classes.add("CS240");
+        classes.add("CS250");
+        classes.add("CS251");
+        classes.add("CS252");
+        classes.add("CS307");
+        classes.add("CS373");
+
+
+        DegreeGraph graph = new DegreeGraph("CS",8, classes);
+        graph.addEdge(0,1);
+        graph.addEdge(0,2);
+        graph.addEdge(1,3);
+        graph.addEdge(1,4);
+        graph.addEdge(2,3);
+        graph.addEdge(2,4);
+        graph.addEdge(3,5);
+        graph.addEdge(4,5);
+        graph.addEdge(4,6);
+        graph.addEdge(4,7);
+
+        degreeGraphRepository.save(graph);
 
 
 

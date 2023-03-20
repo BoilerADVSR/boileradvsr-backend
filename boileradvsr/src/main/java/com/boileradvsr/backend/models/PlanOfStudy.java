@@ -2,8 +2,6 @@ package com.boileradvsr.backend.models;
 import java.util.ArrayList;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.sound.midi.ShortMessage;
-
 @Document(collection = "planofstudy")
 public class PlanOfStudy {
     ArrayList<Degree> degrees;

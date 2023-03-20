@@ -21,6 +21,12 @@ import java.util.Map;
 @EnableMongoRepositories
 @RequestMapping("/students")
 public class StudentController {
+    @Autowired
+    public DegreeGraphController degreeGraphController;
+
+    @Autowired
+    public CourseRepository courseRepository;
+
     public StudentRepository repository;
 
     public StudentController(StudentRepository repository) {
@@ -78,6 +84,20 @@ public class StudentController {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         return s.getPlanOfStudy().getCoursesTaken();
     }
+    @GetMapping("/{id}/plan/courses/suggested")
+    public ArrayList<Course> SuggestedCourses(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        DegreeGraph graph = degreeGraphController.getDegree("CS");
+        ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken);
+        ArrayList<Course> coursesSuggested = new ArrayList<>();
+        for (String name : suggestedNames) {
+            coursesSuggested.add(courseRepository.findCourseByCourseID(name));
+        }
+        return coursesSuggested;
+    }
+
+
     @GetMapping("/{id}/plan/requirements")
     public ArrayList<Requirement> requirementsLeft(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
