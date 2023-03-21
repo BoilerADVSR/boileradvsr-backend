@@ -1,8 +1,5 @@
 package com.boileradvsr.backend.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +26,9 @@ public class Student implements UserDetails {
     @Id
     String email;
     String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
     @Transient
     Semester graduationSemester;
     double GPA;

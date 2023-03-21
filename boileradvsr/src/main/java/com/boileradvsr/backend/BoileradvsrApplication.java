@@ -21,6 +21,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private DegreeRepository degreeRepository;
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
 
     public static void main(String[] args) {
@@ -33,6 +35,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
         courseRepository.deleteAll();
         degreeRepository.deleteAll();
         professorRepository.deleteAll();
+        tokenRepository.deleteAll();
+
         studentRepository.save(new Student("Brandon", "hart", "b@purdue.edu", "pw"));
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));

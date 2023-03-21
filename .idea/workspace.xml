@@ -34,14 +34,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/BoileradvsrApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Professor.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Professor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/boileradvsr/src/main/java/com/boileradvsr/backend/models/Student.java" afterDir="false" />
+    <list default="true" id="1fb15aa9-eb31-4ffa-87ff-8d1ee6d5f68a" name="Default Changelist" comment="controller/repository">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +43,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -63,6 +62,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -76,6 +87,8 @@
       <workItem from="1677091588322" duration="321000" />
       <workItem from="1677091949292" duration="317000" />
       <workItem from="1677092357573" duration="264000" />
+      <workItem from="1679104631993" duration="449000" />
+      <workItem from="1679330128415" duration="129000" />
     </task>
     <task id="LOCAL-00001" summary="controller/repository">
       <created>1677361537795</created>
@@ -101,7 +114,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/jwtAutho" />
                       </list>
                     </value>
                   </entry>
@@ -112,7 +125,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="controller/repository" />

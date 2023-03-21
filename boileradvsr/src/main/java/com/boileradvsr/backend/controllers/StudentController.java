@@ -85,11 +85,11 @@ public class StudentController {
 
 
 
-//    @PostMapping
-//    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
-//        Student savedStudent = repository.save(student);
-//        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
-//    }
+    @PostMapping
+    public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
+        Student savedStudent = repository.save(student);
+        return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
