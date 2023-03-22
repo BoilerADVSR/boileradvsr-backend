@@ -13,18 +13,19 @@ public class Review {
     String reviewText;
     //Date dateOfReview;
 
-    public Review(String studentReviewer, String course, String professor, double overallRating) {
-        this.studentReviewer = studentReviewer;
-        this.professor = professor;
-        this.overallRating = overallRating;
-
-    }
 
     public Review(String studentReviewer, String course, String reviewText) {
         this.studentReviewer = studentReviewer;
         this.reviewText = reviewText;
         this.course = course;
         overallRating = -1;
+    }
+
+    public Review(String studentReviewer, String course, String reviewText, double overallRating) {
+        this.studentReviewer = studentReviewer;
+        this.reviewText = reviewText;
+        this.course = course;
+        this.overallRating = overallRating;
     }
 
     public Review(String studentReviewer, String course, double overallRating) {

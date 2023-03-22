@@ -85,17 +85,50 @@ public class StudentController {
         return s.getPlanOfStudy().getCoursesTaken();
     }
     @GetMapping("/{id}/plan/courses/suggested")
-    public ArrayList<Course> SuggestedCourses(@PathVariable String id) {
+    public ArrayList<Course> SuggestedCourses(@PathVariable String id, @RequestBody ObjectNode objectNode) {
+        String degree = objectNode.get("Degree").asText();
+
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
-        DegreeGraph graph = degreeGraphController.getDegree("CS");
-        ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken);
+        ArrayList<Degree> concentrations = new ArrayList<>();
+        for (Degree concentration : s.getPlanOfStudy().getDegrees()) {
+            if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
+        }
+        //TODO fix for all degrees(add a request body)
+        DegreeGraph graph = degreeGraphController.getDegree("degree");
+        ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken, concentrations);
         ArrayList<Course> coursesSuggested = new ArrayList<>();
         for (String name : suggestedNames) {
             coursesSuggested.add(courseRepository.findCourseByCourseID(name));
         }
         return coursesSuggested;
     }
+
+    @GetMapping("/{id}/plan/courses/suggestedSemester")
+    public ArrayList<Course> suggestedSemester(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        ArrayList<Course> eligibleCourses = new ArrayList<>();
+        DegreeGraph graph = degreeGraphController.getDegree("CS");
+        ArrayList<Requirement> requirementsLeft = s.getPlanOfStudy().requirementsLeft();
+        ArrayList<String> studentCourses = new ArrayList<>();
+        for (Requirement requirement : requirementsLeft) {
+            if (requirement.getType() == Requirement.Type.ELECTIVE) {
+                for (Course course : requirement.getCourses()) {
+                    studentCourses.add(course.getCourseID());
+                }
+            }
+        }
+        for (String courseId : studentCourses) {
+            eligibleCourses.add(courseRepository.findCourseByCourseID(courseId));
+        }
+
+        ArrayList<Course> courses = Suggest.rank(eligibleCourses);
+
+
+         return courses;
+    }
+
 
 
     @GetMapping("/{id}/plan/requirements")

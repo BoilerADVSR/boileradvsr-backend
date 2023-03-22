@@ -60,10 +60,12 @@ public class CourseController {
     public ResponseEntity<Course> addReview(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
         String studentId = objectNode.get("studentID").asText();
         String reviewText = objectNode.get("reviewText").asText();
+        double rating = Double.parseDouble(objectNode.get("rating").asText());
         String courseID = objectNode.get("courseID").asText();
+
         Student student = studentController.getStudent(studentId);
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
-        Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText);
+        Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText, rating);
         course.addReview(review);
         student.addReview(review);
         repository.save(course);
