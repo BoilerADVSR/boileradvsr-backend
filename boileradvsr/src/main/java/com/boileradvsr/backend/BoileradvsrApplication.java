@@ -61,6 +61,20 @@ public class BoileradvsrApplication implements CommandLineRunner {
         Course ma265 = new Course("MA", "265", "Linear Algebra", "Math", "Science");
         Course ma351 = new Course("MA", "351", "Elementary Linear Algebra", "Math", "Science");
 
+        Course eaps106 = new Course("EAPS", "106", "Geosciences in the Cinema", "EAPS", "Science");
+        Course scla101 = new Course("SCLA", "101", "Writing I", "English", "Liberal Arts");
+        Course mgmt200 = new Course("MGMT", "200", "Management Accounting", "Management", "Business");
+        Course biol110 = new Course("BIOL", "110", "Fundamentals of Biology I", "Biology", "Science");
+
+        Requirement electives = new Requirement("Electives",Requirement.Type.ELECTIVE);
+        electives.addCourse(eaps106);
+        electives.addCourse(scla101);
+        electives.addCourse(mgmt200);
+        electives.addCourse(biol110);
+        compsci.addRequirement(electives);
+
+
+
 
         Requirement csLinearAlgebra = new Requirement("Linear Algebra",Requirement.Type.CORE);
         csLinearAlgebra.addCourse(ma265);
@@ -91,6 +105,10 @@ public class BoileradvsrApplication implements CommandLineRunner {
         courseRepository.save(ma261);
         courseRepository.save(ma265);
         courseRepository.save(ma351);
+        courseRepository.save(eaps106);
+        courseRepository.save(scla101);
+        courseRepository.save(mgmt200);
+        courseRepository.save(biol110);
         degreeRepository.save(compsci);
 
         ArrayList<Course> oscmp = new ArrayList<>();

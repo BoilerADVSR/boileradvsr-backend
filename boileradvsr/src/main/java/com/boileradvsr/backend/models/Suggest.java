@@ -11,13 +11,32 @@ import java.util.Comparator;
 public class Suggest {
 
 
-    public static ArrayList<Course> suggestASemester(Student student, DegreeGraph graph, ArrayList<Course> availableCourses) {
+    public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives) {
         ArrayList<Course> coursesTaken = student.getPlanOfStudy().getCoursesTaken();
-        ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken, new ArrayList<>());
+        ArrayList<String> suggestedCore = graph.getNextEligibleClassesController(coursesTaken, concentrations);
 
 
-        rank(availableCourses);
-        return null;
+        availableElectives = rank(availableElectives);
+
+        ArrayList<String> suggestedSemester = new ArrayList<>();
+        if (suggestedCore.size() > 2) {
+            suggestedSemester.add(suggestedCore.get(0));
+            suggestedSemester.add(suggestedCore.get(1));
+        } else {
+            suggestedSemester.addAll(suggestedCore);
+        }
+
+        if (availableElectives.size() > 3 ) {
+            suggestedSemester.add(availableElectives.get(0).getCourseID());
+            suggestedSemester.add(availableElectives.get(1).getCourseID());
+            suggestedSemester.add(availableElectives.get(2).getCourseID());
+        } else {
+            for (Course course : availableElectives) {
+                suggestedSemester.add(course.getCourseID());
+            }
+        }
+
+        return suggestedSemester;
     }
 
     public static ArrayList<Course> rank(ArrayList<Course> courses) {

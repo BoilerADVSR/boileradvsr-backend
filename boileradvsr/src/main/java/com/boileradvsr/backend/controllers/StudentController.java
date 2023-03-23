@@ -86,7 +86,7 @@ public class StudentController {
     }
     @GetMapping("/{id}/plan/courses/suggested")
     public ArrayList<Course> SuggestedCourses(@PathVariable String id, @RequestBody ObjectNode objectNode) {
-        String degree = objectNode.get("Degree").asText();
+        String degree = objectNode.get("degree").asText();
 
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
@@ -95,7 +95,7 @@ public class StudentController {
             if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
         }
         //TODO fix for all degrees(add a request body)
-        DegreeGraph graph = degreeGraphController.getDegree("degree");
+        DegreeGraph graph = degreeGraphController.getDegree(degree);
         ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken, concentrations);
         ArrayList<Course> coursesSuggested = new ArrayList<>();
         for (String name : suggestedNames) {
@@ -108,10 +108,12 @@ public class StudentController {
     public ArrayList<Course> suggestedSemester(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+
         ArrayList<Course> eligibleCourses = new ArrayList<>();
         DegreeGraph graph = degreeGraphController.getDegree("CS");
         ArrayList<Requirement> requirementsLeft = s.getPlanOfStudy().requirementsLeft();
         ArrayList<String> studentCourses = new ArrayList<>();
+
         for (Requirement requirement : requirementsLeft) {
             if (requirement.getType() == Requirement.Type.ELECTIVE) {
                 for (Course course : requirement.getCourses()) {
@@ -123,7 +125,16 @@ public class StudentController {
             eligibleCourses.add(courseRepository.findCourseByCourseID(courseId));
         }
 
-        ArrayList<Course> courses = Suggest.rank(eligibleCourses);
+        ArrayList<Degree> concentrations = new ArrayList<>();
+        for (Degree concentration : s.getPlanOfStudy().getDegrees()) {
+            if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
+        }
+
+        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses);
+        ArrayList<Course> courses = new ArrayList<>();
+        for (String courseId : courseNames) {
+            courses.add(courseRepository.findCourseByCourseID(courseId));
+        }
 
 
          return courses;
