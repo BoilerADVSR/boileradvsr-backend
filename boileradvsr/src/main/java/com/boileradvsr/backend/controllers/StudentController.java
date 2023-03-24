@@ -63,6 +63,12 @@ public class StudentController {
         return s.getPlanOfStudy();
     }
 
+    @GetMapping("/{id}/plan/semesters")
+    public ArrayList<Semester> semesters(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        return s.getPlanOfStudy().getSemesters();
+    }
+
     @PostMapping("/{id}/plan/addcourse")
     public ResponseEntity addCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
         int year = Integer.parseInt(objectNode.get("year").asText());
@@ -72,9 +78,11 @@ public class StudentController {
         String courseTitle = objectNode.get("courseTitle").asText();
         String department = objectNode.get("department").asText();
         String college = objectNode.get("college").asText();
+        double grade = Double.parseDouble(objectNode.get("grade").asText());
+
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
-        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college));
+        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, grade));
         repository.save(student);
         return ResponseEntity.ok(student);
     }

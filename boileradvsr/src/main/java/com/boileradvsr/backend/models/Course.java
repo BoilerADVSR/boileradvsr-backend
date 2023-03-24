@@ -16,7 +16,7 @@ public class Course {
     private String college;
     private double averageRating;
     private double averageGPA;
-    private Grade grade;
+    private double grade;
     private ArrayList<Review> reviews;
 
     enum COURSETYPE {
@@ -35,6 +35,18 @@ public class Course {
         reviews = new ArrayList<>();
         //TODO needs fixing (set a default rating)
         averageRating = 5;
+
+    }
+
+    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, double grade) {
+        this.courseID = courseIdDepartment + courseIdNumber;
+        this.courseIdDepartment = courseIdDepartment;
+        this.courseIdNumber = courseIdNumber;
+        this.courseTitle = courseTitle;
+        this.department = department;
+        this.college = college;
+        this.grade = grade;
+        //TODO needs fixing (set a default rating)
 
     }
 
@@ -97,7 +109,7 @@ public class Course {
         return department;
     }
 
-    public Grade getGrade() {
+    public double getGrade() {
         return grade;
     }
     
@@ -113,7 +125,7 @@ public class Course {
         return reviews;
     }
 
-    public void setGrade(Grade grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 
