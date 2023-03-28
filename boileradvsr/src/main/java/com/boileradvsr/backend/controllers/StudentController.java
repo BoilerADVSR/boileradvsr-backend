@@ -16,11 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @EnableMongoRepositories
 @RequestMapping("/students")
 public class StudentController {
+    @Autowired
+    public DegreeGraphController degreeGraphController;
+
+    @Autowired
+    public CourseRepository courseRepository;
+    @Autowired
+    public DegreeRepository degreeRepository;
+
     public StudentRepository repository;
 
     public StudentController(StudentRepository repository) {
@@ -57,7 +65,30 @@ public class StudentController {
         return s.getPlanOfStudy();
     }
 
-    @PostMapping("/{id}/plan/addcourse")
+    @GetMapping("/{id}/plan/semesters")
+    public ArrayList<Semester> semesters(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        return s.getPlanOfStudy().getSemesters();
+    }
+    @PostMapping("/{id}/plan/adddegree")
+    public ResponseEntity addDegree(@PathVariable String id, @RequestBody ObjectNode objectNode)  {
+        String degreeTitle = objectNode.get("degree").asText();
+        //add = true, add degree, else remove
+        boolean add = Boolean.valueOf(objectNode.get("operation").asText());
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+
+        if (add) {
+            Degree degree = degreeRepository.findById(degreeTitle).orElseThrow(RuntimeException::new);
+            student.getPlanOfStudy().addDegree(degree);
+        } else {
+            student.getPlanOfStudy().removeDegree(degreeTitle);
+        }
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
+
+        @PostMapping("/{id}/plan/addcourse")
     public ResponseEntity addCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
         int year = Integer.parseInt(objectNode.get("year").asText());
         Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText());
@@ -66,9 +97,11 @@ public class StudentController {
         String courseTitle = objectNode.get("courseTitle").asText();
         String department = objectNode.get("department").asText();
         String college = objectNode.get("college").asText();
+        double grade = Double.parseDouble(objectNode.get("grade").asText());
+
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
-        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college));
+        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, grade));
         repository.save(student);
         return ResponseEntity.ok(student);
     }
@@ -78,6 +111,64 @@ public class StudentController {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         return s.getPlanOfStudy().getCoursesTaken();
     }
+    @GetMapping("/{id}/plan/courses/suggested")
+    public ArrayList<Course> SuggestedCourses(@PathVariable String id, @RequestBody ObjectNode objectNode) {
+        String degree = objectNode.get("degree").asText();
+
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        ArrayList<Degree> concentrations = new ArrayList<>();
+        for (Degree concentration : s.getPlanOfStudy().getDegrees()) {
+            if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
+        }
+        //TODO fix for all degrees(add a request body)
+        DegreeGraph graph = degreeGraphController.getDegree(degree);
+        ArrayList<String> suggestedNames = graph.getNextEligibleClassesController(coursesTaken, concentrations);
+        ArrayList<Course> coursesSuggested = new ArrayList<>();
+        for (String name : suggestedNames) {
+            coursesSuggested.add(courseRepository.findCourseByCourseID(name));
+        }
+        return coursesSuggested;
+    }
+
+    @GetMapping("/{id}/plan/courses/suggestedSemester")
+    public ArrayList<Course> suggestedSemester(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+
+        ArrayList<Course> eligibleCourses = new ArrayList<>();
+        DegreeGraph graph = degreeGraphController.getDegree("CS");
+        ArrayList<Requirement> requirementsLeft = s.getPlanOfStudy().requirementsLeft();
+        ArrayList<String> studentCourses = new ArrayList<>();
+
+        for (Requirement requirement : requirementsLeft) {
+            if (requirement.getType() == Requirement.Type.ELECTIVE) {
+                for (Course course : requirement.getCourses()) {
+                    studentCourses.add(course.getCourseID());
+                }
+            }
+        }
+        for (String courseId : studentCourses) {
+            eligibleCourses.add(courseRepository.findCourseByCourseID(courseId));
+        }
+
+        ArrayList<Degree> concentrations = new ArrayList<>();
+        for (Degree concentration : s.getPlanOfStudy().getDegrees()) {
+            if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
+        }
+
+        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses);
+        ArrayList<Course> courses = new ArrayList<>();
+        for (String courseId : courseNames) {
+            courses.add(courseRepository.findCourseByCourseID(courseId));
+        }
+
+
+         return courses;
+    }
+
+
+
     @GetMapping("/{id}/plan/requirements")
     public ArrayList<Requirement> requirementsLeft(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);

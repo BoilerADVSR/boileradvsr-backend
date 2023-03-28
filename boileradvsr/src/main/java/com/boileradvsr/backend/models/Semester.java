@@ -36,7 +36,7 @@ public class Semester {
 
     public void calculateGPA() {
         double gpas = 0.0;
-        for (Course course : courses) gpas += course.getGrade().getGpaValue();
+        for (Course course : courses) gpas += course.getGrade();
         gpas /= courses.size();
         gpa = gpas;
     }

@@ -2,8 +2,6 @@ package com.boileradvsr.backend.models;
 import java.util.ArrayList;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.sound.midi.ShortMessage;
-
 @Document(collection = "planofstudy")
 public class PlanOfStudy {
     ArrayList<Degree> degrees;
@@ -98,6 +96,16 @@ public class PlanOfStudy {
     public void addDegree(Degree degree) {
         degrees.add(degree);
     }
+
+    public void removeDegree(String degreetitle) {
+        for (int i = 0; i < degrees.size(); i++) {
+            if (degrees.get(i).getDegreeTitle().equals(degreetitle)) {
+                degrees.remove(i);
+                return;
+            }
+        }
+    }
+
 
     public void addSemester(Semester semester) {
         semesters.add(semester);

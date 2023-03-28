@@ -17,6 +17,8 @@ public class Student {
     PlanOfStudy planOfStudy;
     ArrayList<Advisor> academicAdvisors;
     ArrayList<Review> reviews;
+    String aboutMe;
+    String linkedIn;
 
     public Student(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -107,6 +109,21 @@ public class Student {
         reviews.add(review);
     }
 
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
 
     @Override
     public String toString() {
