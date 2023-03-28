@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @EnableMongoRepositories
 @RequestMapping("/courses")

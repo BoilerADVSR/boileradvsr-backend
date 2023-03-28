@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @EnableMongoRepositories
 @RequestMapping("/students")
@@ -26,6 +26,8 @@ public class StudentController {
 
     @Autowired
     public CourseRepository courseRepository;
+    @Autowired
+    public DegreeRepository degreeRepository;
 
     public StudentRepository repository;
 
@@ -68,8 +70,25 @@ public class StudentController {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         return s.getPlanOfStudy().getSemesters();
     }
+    @PostMapping("/{id}/plan/adddegree")
+    public ResponseEntity addDegree(@PathVariable String id, @RequestBody ObjectNode objectNode)  {
+        String degreeTitle = objectNode.get("degree").asText();
+        //add = true, add degree, else remove
+        boolean add = Boolean.valueOf(objectNode.get("operation").asText());
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
 
-    @PostMapping("/{id}/plan/addcourse")
+        if (add) {
+            Degree degree = degreeRepository.findById(degreeTitle).orElseThrow(RuntimeException::new);
+            student.getPlanOfStudy().addDegree(degree);
+        } else {
+            student.getPlanOfStudy().removeDegree(degreeTitle);
+        }
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
+
+        @PostMapping("/{id}/plan/addcourse")
     public ResponseEntity addCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
         int year = Integer.parseInt(objectNode.get("year").asText());
         Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText());

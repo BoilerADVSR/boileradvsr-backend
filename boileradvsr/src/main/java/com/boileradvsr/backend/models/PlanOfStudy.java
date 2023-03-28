@@ -97,6 +97,16 @@ public class PlanOfStudy {
         degrees.add(degree);
     }
 
+    public void removeDegree(String degreetitle) {
+        for (int i = 0; i < degrees.size(); i++) {
+            if (degrees.get(i).getDegreeTitle().equals(degreetitle)) {
+                degrees.remove(i);
+                return;
+            }
+        }
+    }
+
+
     public void addSemester(Semester semester) {
         semesters.add(semester);
         calculateGPA();
