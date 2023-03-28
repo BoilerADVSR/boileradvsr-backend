@@ -3,6 +3,7 @@ package com.boileradvsr.backend.controllers;
 import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentController {
 
-    public StudentRepository repository;
+
+    private final StudentRepository repository;
+    private final PassChangeService changeService;
 
 
 
@@ -103,6 +106,20 @@ public class StudentController {
             @RequestBody AuthenticationRequest request
     ) {
         return ResponseEntity.ok(service.login(request));
+    }
+
+    @GetMapping("/change/pass")
+    public String passChange(@RequestBody PassChangeReq request) {
+        return changeService.change(request);
+    }
+
+    @PutMapping("/change/pass={email}")
+    public ResponseEntity<Student> passChangeResp(@RequestBody PassChangeResponse response,
+                                                  @PathVariable String email) {
+        Student student = repository.findStudentByEmail(email);
+        student.setPassword(response.getPassword());
+        repository.save(student);
+        return ResponseEntity.ok(student);
     }
 
     @DeleteMapping("/{id}")
