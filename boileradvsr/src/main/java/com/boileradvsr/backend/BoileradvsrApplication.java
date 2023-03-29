@@ -135,6 +135,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         gpos.addDegree(csML);
         gpos.addDegree(csSWE);
         g.setPlanOfStudy(gpos);
+        g.setAboutMe("Hi I'm g");
         studentRepository.save(g);
 
         Professor turkstra = new Professor("Jeff", "Turkstra", "Computer Science");

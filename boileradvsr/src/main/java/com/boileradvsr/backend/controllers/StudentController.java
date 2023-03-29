@@ -180,8 +180,23 @@ public class StudentController {
         return s.getPlanOfStudy().requirementsLeft();
     }
 
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity updateStudent(@PathVariable String id, @RequestBody Student student) {
+        Student updatedStudent = repository.findById(id).orElseThrow(RuntimeException::new);
+        updatedStudent.setFirstName(student.getFirstName());
+        updatedStudent.setLastName(student.getLastName());
+        updatedStudent.setEmail(student.getEmail());
+        updatedStudent.setPassword(student.getPassword());
+        updatedStudent.setGraduationSemester(student.getGraduationSemester());
+        updatedStudent.setGPA(student.getGPA());
+        updatedStudent.setPlanOfStudy(student.getPlanOfStudy());
+        updatedStudent.setAcademicAdvisors(student.getAcademicAdvisors());
+        updatedStudent.setReviews(student.getReviews());
+        updatedStudent.setAboutMe(student.getAboutMe());
+        updatedStudent.setLinkedIn(student.getLinkedIn());
+        updatedStudent = repository.save(student);
+        return ResponseEntity.ok(updatedStudent);
+    }
     @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
         Student savedStudent = repository.save(student);
