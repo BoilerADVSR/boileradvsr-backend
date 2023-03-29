@@ -97,11 +97,13 @@ public class StudentController {
         String courseTitle = objectNode.get("courseTitle").asText();
         String department = objectNode.get("department").asText();
         String college = objectNode.get("college").asText();
+        int creditHours = Integer.parseInt(objectNode.get("creditHours").asText());
         double grade = Double.parseDouble(objectNode.get("grade").asText());
 
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
-        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, grade));
+        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, creditHours, grade));
+        student.getPlanOfStudy().calculateGPA();
         repository.save(student);
         return ResponseEntity.ok(student);
     }

@@ -17,6 +17,7 @@ public class Course {
     private double averageRating;
     private double averageGPA;
     private double grade;
+    private int creditHours;
     private ArrayList<Review> reviews;
 
     enum COURSETYPE {
@@ -25,7 +26,7 @@ public class Course {
     }    
 
 
-    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college) {
+    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, int creditHours) {
         this.courseID = courseIdDepartment + courseIdNumber;
         this.courseIdDepartment = courseIdDepartment;
         this.courseIdNumber = courseIdNumber;
@@ -33,12 +34,13 @@ public class Course {
         this.department = department;
         this.college = college;
         reviews = new ArrayList<>();
+        this.creditHours=creditHours;
         //TODO needs fixing (set a default rating)
         averageRating = 5;
 
     }
 
-    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, double grade) {
+    public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, int creditHours, double grade) {
         this.courseID = courseIdDepartment + courseIdNumber;
         this.courseIdDepartment = courseIdDepartment;
         this.courseIdNumber = courseIdNumber;
@@ -46,6 +48,7 @@ public class Course {
         this.department = department;
         this.college = college;
         this.grade = grade;
+        this.creditHours = creditHours;
         //TODO needs fixing (set a default rating)
 
     }
@@ -171,19 +174,12 @@ public class Course {
         this.reviews = reviews;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseID='" + courseID + '\'' +
-                ", courseIdDepartment='" + courseIdDepartment + '\'' +
-                ", courseIdNumber='" + courseIdNumber + '\'' +
-                ", courseTitle='" + courseTitle + '\'' +
-                ", department='" + department + '\'' +
-                ", college='" + college + '\'' +
-                ", averageRating=" + averageRating +
-                ", averageGPA=" + averageGPA +
-                ", grade=" + grade +
-                ", reviews=" + reviews +
-                '}';
+    public int getCreditHours() {
+        return creditHours;
     }
+
+    public void setCreditHours(int creditHours) {
+        this.creditHours = creditHours;
+    }
+
 }

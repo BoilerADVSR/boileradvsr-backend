@@ -45,26 +45,26 @@ public class BoileradvsrApplication implements CommandLineRunner {
         Degree csSWE = new Degree(Degree.DEGREETYPE.CONCENTRATION, "Software Engineering", "Science", "Computer Science");
 
 
-        Course cs180 = new Course("CS", "180", "Object-Oriented Programming", "Computer Science", "Science");
-        Course cs182 = new Course("CS", "182", "Discrete Mathematics", "Computer Science", "Science");
-        Course cs240 = new Course("CS", "240", "C Programming", "Computer Science", "Science");
-        Course cs250 = new Course("CS", "250", "Computer Architecture", "Computer Science", "Science");
-        Course cs251 = new Course("CS", "251", "Data Structures and Algorithms", "Computer Science", "Science");
-        Course cs252 = new Course("CS", "252", "Systems Programming", "Computer Science", "Science");
-        Course cs307 = new Course("CS", "307", "Software Engineering", "Computer Science", "Science");
-        Course cs352 = new Course("CS", "352", "Compilers", "Computer Science", "Science");
-        Course cs354 = new Course("CS", "354", "Operating Systems", "Computer Science", "Science");
-        Course cs381 = new Course("CS", "381", "Intro Analysis Algor", "Computer Science", "Science");
-        Course cs373 = new Course("CS", "373", "Data Mining and Machine Learning", "Computer Science", "Science");
+        Course cs180 = new Course("CS", "180", "Object-Oriented Programming", "Computer Science", "Science", 4);
+        Course cs182 = new Course("CS", "182", "Discrete Mathematics", "Computer Science", "Science", 3);
+        Course cs240 = new Course("CS", "240", "C Programming", "Computer Science", "Science", 3);
+        Course cs250 = new Course("CS", "250", "Computer Architecture", "Computer Science", "Science", 4);
+        Course cs251 = new Course("CS", "251", "Data Structures and Algorithms", "Computer Science", "Science", 3);
+        Course cs252 = new Course("CS", "252", "Systems Programming", "Computer Science", "Science", 4);
+        Course cs307 = new Course("CS", "307", "Software Engineering", "Computer Science", "Science", 3);
+        Course cs352 = new Course("CS", "352", "Compilers", "Computer Science", "Science", 3);
+        Course cs354 = new Course("CS", "354", "Operating Systems", "Computer Science", "Science", 3);
+        Course cs381 = new Course("CS", "381", "Intro Analysis Algor", "Computer Science", "Science", 3);
+        Course cs373 = new Course("CS", "373", "Data Mining and Machine Learning", "Computer Science", "Science", 3);
 
-        Course ma261 = new Course("MA", "261", "Multivariate Calculus", "Math", "Science");
-        Course ma265 = new Course("MA", "265", "Linear Algebra", "Math", "Science");
-        Course ma351 = new Course("MA", "351", "Elementary Linear Algebra", "Math", "Science");
+        Course ma261 = new Course("MA", "261", "Multivariate Calculus", "Math", "Science", 4);
+        Course ma265 = new Course("MA", "265", "Linear Algebra", "Math", "Science", 3);
+        Course ma351 = new Course("MA", "351", "Elementary Linear Algebra", "Math", "Science", 3);
 
-        Course eaps106 = new Course("EAPS", "106", "Geosciences in the Cinema", "EAPS", "Science");
-        Course scla101 = new Course("SCLA", "101", "Writing I", "English", "Liberal Arts");
-        Course mgmt200 = new Course("MGMT", "200", "Management Accounting", "Management", "Business");
-        Course biol110 = new Course("BIOL", "110", "Fundamentals of Biology I", "Biology", "Science");
+        Course eaps106 = new Course("EAPS", "106", "Geosciences in the Cinema", "EAPS", "Science", 3);
+        Course scla101 = new Course("SCLA", "101", "Writing I", "English", "Liberal Arts", 3);
+        Course mgmt200 = new Course("MGMT", "200", "Management Accounting", "Management", "Business", 3);
+        Course biol110 = new Course("BIOL", "110", "Fundamentals of Biology I", "Biology", "Science", 3);
 
         Requirement electives = new Requirement("Electives",Requirement.Type.ELECTIVE);
         electives.addCourse(eaps106);

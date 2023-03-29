@@ -7,11 +7,13 @@ public class Semester {
         SPRING,
         SUMMER
     }
-
+    double gpa;
     int year;
+    double qualityPoints;
+    int creditHours;
     Season season;
     ArrayList<Course> courses;
-    double gpa;
+
 
     public Semester(int year, Season season, ArrayList<Course> courses) {
         this.year = year;
@@ -35,10 +37,15 @@ public class Semester {
     }
 
     public void calculateGPA() {
-        double gpas = 0.0;
-        for (Course course : courses) gpas += course.getGrade();
-        gpas /= courses.size();
-        gpa = gpas;
+        double qualityPoints = 0.0;
+        int creditHours = 0;
+        for (Course course : courses) {
+            qualityPoints += course.getGrade() * course.getCreditHours();
+            creditHours += course.getCreditHours();
+        }
+        gpa = qualityPoints / creditHours;
+        this.creditHours = creditHours;
+        this.qualityPoints = qualityPoints;
     }
 
     public ArrayList<Course> getCourses() {
@@ -81,6 +88,22 @@ public class Semester {
 
     public double getGpa() {
         return gpa;
+    }
+
+    public int getCreditHours() {
+        return creditHours;
+    }
+
+    public double getQualityPoints() {
+        return qualityPoints;
+    }
+
+    public void setCreditHours(int creditHours) {
+        this.creditHours = creditHours;
+    }
+
+    public void setQualityPoints(double qualityPoints) {
+        this.qualityPoints = qualityPoints;
     }
 
     @Override

@@ -4,9 +4,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "planofstudy")
 public class PlanOfStudy {
+    double gpa;
     ArrayList<Degree> degrees;
     ArrayList<Semester> semesters;
-    double gpa;
 
     public PlanOfStudy(ArrayList<Degree> degrees, ArrayList<Semester> semesters) {
 
@@ -22,10 +22,17 @@ public class PlanOfStudy {
     }
 
     public void calculateGPA() {
-        double gpas = 0.0;
-        for (Semester semester : semesters) gpas += semester.getGpa();
-        gpas /= semesters.size();
-        gpa = gpas;
+        int creditHours = 0;
+        int qualityPoints = 0;
+        for (Semester semester : semesters) {
+            qualityPoints += semester.getQualityPoints();
+            creditHours += semester.getCreditHours();
+        }
+        if (creditHours == 0) {
+            gpa = 0;
+        } else {
+            gpa = (double)qualityPoints / creditHours;
+        }
     }
 
     public Semester getSemesterByDate(Semester.Season season, int year) {
@@ -52,7 +59,7 @@ public class PlanOfStudy {
         }
         return courses;
     }
-
+    //TODO refactor names so it is not included in the API REQUEST
     public ArrayList<String> getCourseIDsTaken() {
         ArrayList<String> courses = new ArrayList<>();
         for (Semester semester : semesters) {
