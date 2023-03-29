@@ -18,6 +18,7 @@ public class Course {
     private double averageGPA;
     private double grade;
     private int creditHours;
+    private double[] gradeDistribution;
     private ArrayList<Review> reviews;
 
     enum COURSETYPE {
@@ -37,6 +38,7 @@ public class Course {
         this.creditHours=creditHours;
         //TODO needs fixing (set a default rating)
         averageRating = 5;
+        gradeDistribution = null;
 
     }
 
@@ -49,8 +51,8 @@ public class Course {
         this.college = college;
         this.grade = grade;
         this.creditHours = creditHours;
+        gradeDistribution = new double[13];
         //TODO needs fixing (set a default rating)
-
     }
 
     public Course() {};
@@ -182,4 +184,11 @@ public class Course {
         this.creditHours = creditHours;
     }
 
+    public double[] getGradeDistribution() {
+        return gradeDistribution;
+    }
+
+    public void setGradeDistribution(double[] gradeDistribution) {
+        this.gradeDistribution = gradeDistribution;
+    }
 }

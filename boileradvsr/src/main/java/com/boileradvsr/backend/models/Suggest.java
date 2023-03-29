@@ -11,12 +11,16 @@ import java.util.Comparator;
 public class Suggest {
 
 
-    public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives) {
+    public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives, String sort) {
         ArrayList<Course> coursesTaken = student.getPlanOfStudy().getCoursesTaken();
         ArrayList<String> suggestedCore = graph.getNextEligibleClassesController(coursesTaken, concentrations);
 
+        if (sort.equals("rating")) {
+            availableElectives = rankByRating(availableElectives);
+        } else {
+            availableElectives = rankByAvgGPA(availableElectives);
 
-        availableElectives = rank(availableElectives);
+        }
 
         ArrayList<String> suggestedSemester = new ArrayList<>();
         if (suggestedCore.size() > 2) {
@@ -39,12 +43,29 @@ public class Suggest {
         return suggestedSemester;
     }
 
-    public static ArrayList<Course> rank(ArrayList<Course> courses) {
+    public static ArrayList<Course> rankByRating(ArrayList<Course> courses) {
         int n = courses.size();
         Course temp = null;
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
-                if (courses.get(j - 1).getAverageRating() > courses.get(j).getAverageRating()) {
+                if (courses.get(j - 1).getAverageRating() < courses.get(j).getAverageRating()) {
+                    //swap elements
+                    temp = courses.get(j - 1);
+                    courses.set(j - 1, courses.get(j));
+                    courses.set(j, temp);
+                }
+
+            }
+        }
+        return courses;
+    }
+
+    public static ArrayList<Course> rankByAvgGPA(ArrayList<Course> courses) {
+        int n = courses.size();
+        Course temp = null;
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                if (courses.get(j - 1).getAverageGPA() < courses.get(j).getAverageGPA()) {
                     //swap elements
                     temp = courses.get(j - 1);
                     courses.set(j - 1, courses.get(j));

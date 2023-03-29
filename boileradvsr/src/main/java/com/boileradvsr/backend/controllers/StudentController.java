@@ -134,9 +134,12 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/plan/courses/suggestedSemester")
-    public ArrayList<Course> suggestedSemester(@PathVariable String id) {
+    public ArrayList<Course> suggestedSemester(@PathVariable String id, @RequestParam Map<String, String> params) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        //default sort is avgGPA
+        String sort = "N/A";
+        if (params.containsKey("sort")) sort = params.get("sort");
 
         ArrayList<Course> eligibleCourses = new ArrayList<>();
         DegreeGraph graph = degreeGraphController.getDegree("CS");
@@ -159,7 +162,7 @@ public class StudentController {
             if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
         }
 
-        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses);
+        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses, sort);
         ArrayList<Course> courses = new ArrayList<>();
         for (String courseId : courseNames) {
             courses.add(courseRepository.findCourseByCourseID(courseId));

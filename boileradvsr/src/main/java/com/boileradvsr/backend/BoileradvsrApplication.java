@@ -67,6 +67,10 @@ public class BoileradvsrApplication implements CommandLineRunner {
         Course biol110 = new Course("BIOL", "110", "Fundamentals of Biology I", "Biology", "Science", 3);
 
         Requirement electives = new Requirement("Electives",Requirement.Type.ELECTIVE);
+        eaps106.setAverageGPA(4.0);
+        scla101.setAverageGPA(3.8);
+        mgmt200.setAverageGPA(3.0);
+        biol110.setAverageGPA(3.4);
         electives.addCourse(eaps106);
         electives.addCourse(scla101);
         electives.addCourse(mgmt200);
