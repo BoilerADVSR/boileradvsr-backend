@@ -1,4 +1,5 @@
 package com.boileradvsr.backend.models;
+import com.sun.mail.iap.ByteArray;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,8 +29,16 @@ public class Student implements UserDetails {
     String email;
     String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "student")
     private List<Token> tokens;
+
+
+//    @OneToOne
+//    @JoinColumn(name="file_id")
+//    private FileDB file;
+
+    @Lob
+    byte[] profilePic;
     @Transient
     Semester graduationSemester;
     double GPA;

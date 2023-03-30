@@ -3,11 +3,14 @@ package com.boileradvsr.backend.controllers;
 import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class StudentController {
 
 
     private final AuthService service;
+    private final FileStorageService ImageService;
 
     @GetMapping
     public List<Student> getStudents() {
@@ -113,6 +117,8 @@ public class StudentController {
         return changeService.change(request);
     }
 
+
+
     @PutMapping("/change/pass={email}")
     public ResponseEntity<Student> passChangeResp(@RequestBody PassChangeResponse response,
                                                   @PathVariable String email) {
@@ -122,6 +128,37 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    @PostMapping(value="/upload/{email}",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> setPic(@PathVariable("email") String email,
+                                            @RequestParam MultipartFile file) throws IOException {
+        try {
+            ImageService.store(file, email);
+            return ResponseEntity
+                        .created(new URI("/upload/${email}/profile-picture"))
+                        .build();
+            } catch (Exception NoSuchElementException) {
+                 return ResponseEntity
+                        .notFound()
+                        .build();
+            }
+    }
+
+    @GetMapping ("/upload/{email}/profile-picture")
+    public ResponseEntity<byte[]> getPic(@PathVariable("email") String email) {
+
+        try {
+            byte[] image = ImageService.getFile(email);
+            return ResponseEntity
+                    .ok()
+                    .contentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + email + ".pfp\"")
+                    .body(image);
+        } catch (Exception NoSuchElementException) {
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteStudent(@PathVariable String id) {
         repository.deleteById(id);
