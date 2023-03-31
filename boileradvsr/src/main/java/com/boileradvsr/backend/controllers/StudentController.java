@@ -117,7 +117,7 @@ public class StudentController {
     }
 
     @PostMapping("/{id}/plan/removebacklog/{courseid}")
-    public ResponseEntity removeBacklog(@PathVariable String id, @RequestBody String courseid) throws URISyntaxException {
+    public ResponseEntity removeBacklog(@PathVariable String id, @PathVariable String courseid) throws URISyntaxException {
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         student.removeCourseBacklog(courseid);
         repository.save(student);
