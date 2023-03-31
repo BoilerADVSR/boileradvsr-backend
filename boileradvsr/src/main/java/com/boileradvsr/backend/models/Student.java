@@ -137,6 +137,15 @@ public class Student {
         this.backLog = backLog;
     }
 
+    public void removeCourseBacklog(String id) {
+        for (int i = 0; i < backLog.size(); i++) {
+            if (backLog.get(i).getCourseID().equals(id)) {
+                backLog.remove(i);
+                return;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Student{" +
