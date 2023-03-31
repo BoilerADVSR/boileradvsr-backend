@@ -202,6 +202,7 @@ public class StudentController {
         updatedStudent.setReviews(student.getReviews());
         updatedStudent.setAboutMe(student.getAboutMe());
         updatedStudent.setLinkedIn(student.getLinkedIn());
+        updatedStudent.setBackLog(student.getBackLog());
         updatedStudent = repository.save(student);
         return ResponseEntity.ok(updatedStudent);
     }
