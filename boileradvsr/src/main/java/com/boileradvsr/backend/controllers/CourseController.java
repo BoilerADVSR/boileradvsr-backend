@@ -18,7 +18,7 @@ import java.util.Map;
 @RequestMapping("/courses")
 public class CourseController {
     @Autowired
-    StudentController studentController;
+    StudentRepository studentRepository;
 
     public CourseRepository repository;
 
@@ -63,13 +63,13 @@ public class CourseController {
         double rating = Double.parseDouble(objectNode.get("rating").asText());
         String courseID = objectNode.get("courseID").asText();
 
-        Student student = studentController.getStudent(studentId);
+        Student student = studentRepository.findById(studentId).orElseThrow(RuntimeException::new);
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
         Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText, rating);
         course.addReview(review);
         student.addReview(review);
         repository.save(course);
-        studentController.createStudent(student);
+        studentRepository.save(student);
         return ResponseEntity.ok(course);
     }
 

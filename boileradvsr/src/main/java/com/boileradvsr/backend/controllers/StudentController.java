@@ -97,11 +97,21 @@ public class StudentController {
         String courseTitle = objectNode.get("courseTitle").asText();
         String department = objectNode.get("department").asText();
         String college = objectNode.get("college").asText();
+        int creditHours = Integer.parseInt(objectNode.get("creditHours").asText());
         double grade = Double.parseDouble(objectNode.get("grade").asText());
 
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
-        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, grade));
+        semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, creditHours, grade));
+        student.getPlanOfStudy().calculateGPA();
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
+    @PostMapping("/{id}/plan/addbacklog")
+    public ResponseEntity addBacklog(@PathVariable String id, @RequestBody Course course) throws URISyntaxException {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        student.getBackLog().add(course);
         repository.save(student);
         return ResponseEntity.ok(student);
     }
@@ -132,9 +142,12 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/plan/courses/suggestedSemester")
-    public ArrayList<Course> suggestedSemester(@PathVariable String id) {
+    public ArrayList<Course> suggestedSemester(@PathVariable String id, @RequestParam Map<String, String> params) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        //default sort is avgGPA
+        String sort = "N/A";
+        if (params.containsKey("sort")) sort = params.get("sort");
 
         ArrayList<Course> eligibleCourses = new ArrayList<>();
         DegreeGraph graph = degreeGraphController.getDegree("CS");
@@ -157,7 +170,7 @@ public class StudentController {
             if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
         }
 
-        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses);
+        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses, sort);
         ArrayList<Course> courses = new ArrayList<>();
         for (String courseId : courseNames) {
             courses.add(courseRepository.findCourseByCourseID(courseId));
@@ -175,8 +188,23 @@ public class StudentController {
         return s.getPlanOfStudy().requirementsLeft();
     }
 
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity updateStudent(@PathVariable String id, @RequestBody Student student) {
+        Student updatedStudent = repository.findById(id).orElseThrow(RuntimeException::new);
+        updatedStudent.setFirstName(student.getFirstName());
+        updatedStudent.setLastName(student.getLastName());
+        updatedStudent.setEmail(student.getEmail());
+        updatedStudent.setPassword(student.getPassword());
+        updatedStudent.setGraduationSemester(student.getGraduationSemester());
+        updatedStudent.setGPA(student.getGPA());
+        updatedStudent.setPlanOfStudy(student.getPlanOfStudy());
+        updatedStudent.setAcademicAdvisors(student.getAcademicAdvisors());
+        updatedStudent.setReviews(student.getReviews());
+        updatedStudent.setAboutMe(student.getAboutMe());
+        updatedStudent.setLinkedIn(student.getLinkedIn());
+        updatedStudent = repository.save(student);
+        return ResponseEntity.ok(updatedStudent);
+    }
     @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
         Student savedStudent = repository.save(student);
