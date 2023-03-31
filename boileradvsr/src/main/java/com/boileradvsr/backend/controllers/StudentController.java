@@ -1,5 +1,6 @@
 package com.boileradvsr.backend.controllers;
 
+import com.boileradvsr.backend.email.EmailService;
 import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.coyote.Response;
@@ -28,6 +29,9 @@ public class StudentController {
     public CourseRepository courseRepository;
     @Autowired
     public DegreeRepository degreeRepository;
+
+    @Autowired
+    public PassChangeService changeService;
 
     public StudentRepository repository;
 
@@ -187,6 +191,23 @@ public class StudentController {
 
          return courses;
     }
+
+    @GetMapping("/change/pass")
+    public String passChange(@RequestBody PassChangeReq request) {
+        return changeService.change(request);
+    }
+
+
+
+    @PutMapping("/change/pass={email}")
+    public ResponseEntity<Student> passChangeResp(@RequestBody PassChangeResponse response,
+                                                  @PathVariable String email) {
+        Student student = repository.findById(email).orElseThrow();
+        student.setPassword(response.getPassword());
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
 
 
 

@@ -36,7 +36,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         courseRepository.deleteAll();
         degreeRepository.deleteAll();
         professorRepository.deleteAll();
-        studentRepository.save(new Student("Brandon", "hart", "b@purdue.edu", "pw"));
+        studentRepository.save(new Student("Brandon", "hart", "bahart@purdue.edu", "pw"));
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Mathematics", "Science", "Math"));
