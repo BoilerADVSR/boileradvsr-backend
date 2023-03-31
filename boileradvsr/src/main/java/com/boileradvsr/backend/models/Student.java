@@ -19,6 +19,9 @@ public class Student {
     ArrayList<Review> reviews;
     String aboutMe;
     String linkedIn;
+    //TODO FIX THIS
+    //temporary for backlog user story
+    ArrayList<Course> backLog;
 
     public Student(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -28,6 +31,7 @@ public class Student {
         academicAdvisors = new ArrayList<>();
         reviews = new ArrayList<>();
         this.GPA = 0;
+        backLog = new ArrayList<>();
     }
 
     public void setGPA(double GPA) {
@@ -123,6 +127,14 @@ public class Student {
 
     public void setLinkedIn(String linkedIn) {
         this.linkedIn = linkedIn;
+    }
+
+    public ArrayList<Course> getBackLog() {
+        return backLog;
+    }
+
+    public void setBackLog(ArrayList<Course> backLog) {
+        this.backLog = backLog;
     }
 
     @Override
