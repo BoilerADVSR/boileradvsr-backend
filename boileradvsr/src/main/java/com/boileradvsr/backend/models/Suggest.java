@@ -1,18 +1,12 @@
 package com.boileradvsr.backend.models;
 
-import com.boileradvsr.backend.controllers.CourseController;
-import com.boileradvsr.backend.controllers.StudentController;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Suggest {
 
 
     public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives, String sort) {
-        ArrayList<Course> coursesTaken = student.getPlanOfStudy().getCoursesTaken();
+        ArrayList<Course> coursesTaken = student.getPlanOfStudy().listCoursesTaken();
         ArrayList<String> suggestedCore = graph.getNextEligibleClassesController(coursesTaken, concentrations);
 
         if (sort.equals("rating")) {

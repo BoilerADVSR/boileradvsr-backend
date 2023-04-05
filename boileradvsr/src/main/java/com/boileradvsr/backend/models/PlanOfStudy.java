@@ -52,7 +52,7 @@ public class PlanOfStudy {
                 '}';
     }
 
-    public ArrayList<Course> getCoursesTaken() {
+    public ArrayList<Course> listCoursesTaken() {
         ArrayList<Course> courses = new ArrayList<>();
         for (Semester semester : semesters) {
             courses.addAll(semester.getCourses());
@@ -60,7 +60,7 @@ public class PlanOfStudy {
         return courses;
     }
     //TODO refactor names so it is not included in the API REQUEST
-    public ArrayList<String> getCourseIDsTaken() {
+    public ArrayList<String> listCourseIDsTaken() {
         ArrayList<String> courses = new ArrayList<>();
         for (Semester semester : semesters) {
             for (Course course : semester.getCourses()) {
@@ -70,7 +70,7 @@ public class PlanOfStudy {
         return courses;
     }
 
-    public ArrayList<Requirement> getAllRequirements() {
+    public ArrayList<Requirement> listAllRequirements() {
         ArrayList<Requirement> allRequirements = new ArrayList<>();
         for (Degree degree : degrees) {
             allRequirements.addAll(degree.getRequirements());
@@ -79,8 +79,8 @@ public class PlanOfStudy {
     }
 
     public ArrayList<Requirement> requirementsLeft() {
-        ArrayList<Requirement> requirements = getAllRequirements();
-        ArrayList<String> coursesTaken = getCourseIDsTaken();
+        ArrayList<Requirement> requirements = listAllRequirements();
+        ArrayList<String> coursesTaken = listCourseIDsTaken();
         ArrayList<Requirement> requirementsLeft = new ArrayList<>();
 
         ArrayList<Course> requirementCourses;

@@ -1,16 +1,12 @@
 package com.boileradvsr.backend.controllers;
 
-import com.boileradvsr.backend.email.EmailService;
 import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.coyote.Response;
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Console;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -131,14 +127,14 @@ public class StudentController {
     @GetMapping("/{id}/plan/courses")
     public ArrayList<Course> coursesTaken(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
-        return s.getPlanOfStudy().getCoursesTaken();
+        return s.getPlanOfStudy().listCoursesTaken();
     }
     @GetMapping("/{id}/plan/courses/suggested")
     public ArrayList<Course> SuggestedCourses(@PathVariable String id, @RequestBody ObjectNode objectNode) {
         String degree = objectNode.get("degree").asText();
 
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
-        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().listCoursesTaken();
         ArrayList<Degree> concentrations = new ArrayList<>();
         for (Degree concentration : s.getPlanOfStudy().getDegrees()) {
             if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
@@ -156,7 +152,7 @@ public class StudentController {
     @GetMapping("/{id}/plan/courses/suggestedSemester")
     public ArrayList<Course> suggestedSemester(@PathVariable String id, @RequestParam Map<String, String> params) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
-        ArrayList<Course> coursesTaken = s.getPlanOfStudy().getCoursesTaken();
+        ArrayList<Course> coursesTaken = s.getPlanOfStudy().listCoursesTaken();
         //default sort is avgGPA
         String sort = "N/A";
         if (params.containsKey("sort")) sort = params.get("sort");

@@ -73,6 +73,18 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
+    @PutMapping("/{id}/addquestion")
+    public ResponseEntity<Course> addQuestion(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
+        String studentId = objectNode.get("studentID").asText();
+        String questionText = objectNode.get("question").asText();
+        Question.discussionType type = Question.discussionType.valueOf(objectNode.get("type").asText().toUpperCase());
+        Course course = repository.findById(id).orElseThrow(RuntimeException::new);
+        course.getDiscussion().add(new Question(studentId, questionText, type));
+        repository.save(course);
+        return ResponseEntity.ok(course);
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity updateCourse(@PathVariable String id, @RequestBody Course course) {
         Course currentCourse = repository.findCourseByCourseID(id);

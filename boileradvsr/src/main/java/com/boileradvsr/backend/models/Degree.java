@@ -20,18 +20,13 @@ public class Degree {
     String college;
     String department;
     ArrayList<Requirement> requirements;
-    ArrayList<Degree> specializationsAvailable;
-    ArrayList<Degree> specializationsSelected;
+
     
     public Degree(DEGREETYPE degreeType, String degreeTitle, String college, String department) {
         this.degreeType = degreeType;
         this.degreeTitle = degreeTitle;
         this.college = college;
         this.department = department;
-        if (degreeType == DEGREETYPE.MAJOR) {
-            specializationsSelected = new ArrayList<Degree>();
-            specializationsAvailable = new ArrayList<Degree>();
-        }
         requirements = new ArrayList<Requirement>();
 
     }
@@ -59,18 +54,6 @@ public class Degree {
         return requirements;
     }
 
-    public ArrayList<Degree> getSpecializationsAvailable() {
-        return specializationsAvailable;
-    }
-
-    public ArrayList<Degree> getSpecializationsSelected() {
-        return specializationsSelected;
-    }
-
-    public void addSpecialization(Degree specialization) {
-        specializationsSelected.add(specialization);
-    }
-
     public void setDepartment(String department) {
         this.department = department;
     }
@@ -87,10 +70,6 @@ public class Degree {
         this.degreeType = degreeType;
     }
 
-    public ArrayList<Degree> getAvailableSpecializations() {
-        return(specializationsAvailable);
-    }
-
     @Override
     public String toString() {
         return "Degree{" +
@@ -99,20 +78,10 @@ public class Degree {
                 ", college='" + college + '\'' +
                 ", department='" + department + '\'' +
                 ", requirements=" + requirements +
-                ", specializationsAvailable=" + specializationsAvailable +
-                ", specializationsSelected=" + specializationsSelected +
                 '}';
     }
 
     public void setRequirements(ArrayList<Requirement> requirements) {
         this.requirements = requirements;
-    }
-
-    public void setSpecializationsAvailable(ArrayList<Degree> specializationsAvailable) {
-        this.specializationsAvailable = specializationsAvailable;
-    }
-
-    public void setSpecializationsSelected(ArrayList<Degree> specializationsSelected) {
-        this.specializationsSelected = specializationsSelected;
     }
 }

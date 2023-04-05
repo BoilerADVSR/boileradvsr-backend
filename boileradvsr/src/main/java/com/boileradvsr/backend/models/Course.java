@@ -3,7 +3,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Document(collection = "courseCatalog")
 public class Course {
@@ -20,6 +19,7 @@ public class Course {
     private int creditHours;
     private double[] gradeDistribution;
     private ArrayList<Review> reviews;
+    private ArrayList<Question> discussion;
 
     enum COURSETYPE {
         STUDENT,
@@ -35,6 +35,7 @@ public class Course {
         this.department = department;
         this.college = college;
         reviews = new ArrayList<>();
+        discussion = new ArrayList<>();
         this.creditHours=creditHours;
         //TODO needs fixing (set a default rating)
         averageRating = 5;
@@ -190,5 +191,13 @@ public class Course {
 
     public void setGradeDistribution(double[] gradeDistribution) {
         this.gradeDistribution = gradeDistribution;
+    }
+
+    public ArrayList<Question> getDiscussion() {
+        return discussion;
+    }
+
+    public void setDiscussion(ArrayList<Question> discussion) {
+        this.discussion = discussion;
     }
 }
