@@ -15,15 +15,15 @@ public class PassChangeService {
     public StudentRepository studentRepository;
     @Autowired
     public EmailSender emailSender;
-    public String change(PassChangeReq request) {
-        if (studentRepository.findById(request.getEmail()).isEmpty()) {
+    public String change(String request) {
+        if (studentRepository.findById(request).isEmpty()) {
             throw new RuntimeException();
         }
 
-        Student student = studentRepository.findById(request.getEmail()).get();
+        Student student = studentRepository.findById(request).get();
         String name = student.getFirstName();
-        String link = "http://localhost:8081/students/change/pass="+request.getEmail();
-        emailSender.send(request.getEmail(), buildEmail(name, link));
+        String link = "http://localhost:3000/students/change/pass="+request;
+        emailSender.send(request, buildEmail(name, link));
         return "Email Sent!";
     }
 

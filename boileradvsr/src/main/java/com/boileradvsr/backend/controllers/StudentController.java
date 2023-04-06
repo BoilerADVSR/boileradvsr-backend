@@ -192,19 +192,16 @@ public class StudentController {
          return courses;
     }
 
-    @GetMapping("/change/pass")
-    public String passChange(@RequestBody PassChangeReq request) {
-        return changeService.change(request);
+    @GetMapping("/change/pass/{id}")
+    public String passChange(@PathVariable String id) {
+        return changeService.change(id);
     }
-
-
-
-    @PutMapping("/change/pass={email}")
-    public ResponseEntity<Student> passChangeResp(@RequestBody PassChangeResponse response,
-                                                  @PathVariable String email) {
-        Student student = repository.findById(email).orElseThrow();
-        student.setPassword(response.getPassword());
-        repository.save(student);
+    
+    @PutMapping("/change/pass/{id}/{password}")
+    public ResponseEntity passChangeResp(@PathVariable String id, @PathVariable String password) {
+        Student student = repository.findById(id).orElseThrow();
+        student.setPassword(password);
+        student = repository.save(student);
         return ResponseEntity.ok(student);
     }
 
