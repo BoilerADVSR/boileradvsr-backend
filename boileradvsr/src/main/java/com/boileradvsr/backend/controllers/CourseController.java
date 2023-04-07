@@ -78,8 +78,17 @@ public class CourseController {
         String studentId = objectNode.get("studentID").asText();
         String questionText = objectNode.get("question").asText();
         Question.discussionType type = Question.discussionType.valueOf(objectNode.get("type").asText().toUpperCase());
+        String discussionID = objectNode.get("discussion").asText();
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
-        course.getDiscussion().add(new Question(studentId, questionText, type));
+        if (type.equals(Question.discussionType.QUESTION)) {
+            course.getDiscussion().add(new Question(studentId, questionText, type));
+        } else {
+            for (Question q : course.getDiscussion()) {
+                if (q.getId().equals(discussionID)) {
+                    q.getResponses().add(new Question(studentId, questionText, type));
+                }
+            }
+        }
         repository.save(course);
         return ResponseEntity.ok(course);
     }

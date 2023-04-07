@@ -213,6 +213,41 @@ public class StudentController {
         return s.getPlanOfStudy().requirementsLeft();
     }
 
+    @GetMapping("/{id}/plan/connections")
+    public ArrayList<Student> getConnections(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Student> students = new ArrayList<>();
+        for (String studentID : s.getConnectionsIds()) {
+            students.add(repository.findById(studentID).orElseThrow(RuntimeException::new));
+        }
+        return students;
+    }
+
+    @PutMapping("/{id}/plan/addconnection/{connectionID}")
+    public ResponseEntity addConnection(@PathVariable String id, @PathVariable String connectionID) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
+        s.getConnectionsIds().add(connection.getEmail());
+        connection.getConnectionsIds().add(s.getEmail());
+        repository.save(s);
+        repository.save(connection);
+        return ResponseEntity.ok(s);
+    }
+
+    @PutMapping("/{id}/plan/acceptconnection/{connectionID}")
+    public ResponseEntity acceptConnection(@PathVariable String id, @PathVariable String connectionID) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
+        s.getConnectionsIds().add(connection.getEmail());
+        connection.getConnectionsIds().add(s.getEmail());
+        repository.save(s);
+        repository.save(connection);
+        return ResponseEntity.ok(s);
+    }
+
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity updateStudent(@PathVariable String id, @RequestBody Student student) {
         Student updatedStudent = repository.findById(id).orElseThrow(RuntimeException::new);
@@ -228,6 +263,7 @@ public class StudentController {
         updatedStudent.setAboutMe(student.getAboutMe());
         updatedStudent.setLinkedIn(student.getLinkedIn());
         updatedStudent.setBackLog(student.getBackLog());
+        updatedStudent.setConnectionsIds(student.getConnectionsIds());
         updatedStudent = repository.save(student);
         return ResponseEntity.ok(updatedStudent);
     }

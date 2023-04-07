@@ -19,6 +19,8 @@ public class Student {
     ArrayList<Review> reviews;
     String aboutMe;
     String linkedIn;
+    ArrayList<String> connectionsIds;
+    ArrayList<String> connectionRequests;
     //TODO FIX THIS
     //temporary for backlog user story
     ArrayList<Course> backLog;
@@ -32,6 +34,8 @@ public class Student {
         reviews = new ArrayList<>();
         this.GPA = 0;
         backLog = new ArrayList<>();
+        connectionsIds = new ArrayList<>();
+        connectionRequests = new ArrayList<>();
     }
 
     public void setGPA(double GPA) {
@@ -144,6 +148,22 @@ public class Student {
                 return;
             }
         }
+    }
+
+    public ArrayList<String> getConnectionRequests() {
+        return connectionRequests;
+    }
+
+    public void setConnectionRequests(ArrayList<String> connectionRequests) {
+        this.connectionRequests = connectionRequests;
+    }
+
+    public ArrayList<String> getConnectionsIds() {
+        return connectionsIds;
+    }
+
+    public void setConnectionsIds(ArrayList<String> connectionsIds) {
+        this.connectionsIds = connectionsIds;
     }
 
     @Override
