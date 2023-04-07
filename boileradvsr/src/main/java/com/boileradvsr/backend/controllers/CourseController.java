@@ -4,6 +4,7 @@ import com.boileradvsr.backend.models.*;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,6 +84,10 @@ public class CourseController {
         if (type.equals(Question.discussionType.QUESTION)) {
             course.getDiscussion().add(new Question(studentId, questionText, type));
         } else {
+            Student student = studentRepository.findById(studentId).orElseThrow(RuntimeException::new);
+            if (!student.getPlanOfStudy().listCourseIDsTaken().contains(id)) {
+                return (new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE));
+            }
             for (Question q : course.getDiscussion()) {
                 if (q.getId().equals(discussionID)) {
                     q.getResponses().add(new Question(studentId, questionText, type));

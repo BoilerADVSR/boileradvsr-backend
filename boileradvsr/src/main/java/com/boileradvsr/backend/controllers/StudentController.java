@@ -213,7 +213,7 @@ public class StudentController {
         return s.getPlanOfStudy().requirementsLeft();
     }
 
-    @GetMapping("/{id}/plan/connections")
+    @GetMapping("/{id}/connections")
     public ArrayList<Student> getConnections(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<Student> students = new ArrayList<>();
@@ -223,23 +223,26 @@ public class StudentController {
         return students;
     }
 
-    @PutMapping("/{id}/plan/addconnection/{connectionID}")
-    public ResponseEntity addConnection(@PathVariable String id, @PathVariable String connectionID) {
+
+    @PutMapping("/{id}/connection/request/{connectionID}")
+    public ResponseEntity requestConnection(@PathVariable String id, @PathVariable String connectionID) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
-        s.getConnectionsIds().add(connection.getEmail());
-        connection.getConnectionsIds().add(s.getEmail());
-        repository.save(s);
+        connection.getConnectionRequests().add(s.getEmail());
         repository.save(connection);
         return ResponseEntity.ok(s);
     }
 
-    @PutMapping("/{id}/plan/acceptconnection/{connectionID}")
-    public ResponseEntity acceptConnection(@PathVariable String id, @PathVariable String connectionID) {
+    @PutMapping("/{id}/connection/handle/{connectionID}")
+    public ResponseEntity handleConnection(@PathVariable String id, @PathVariable String connectionID, @RequestBody ObjectNode objectNode) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
-        s.getConnectionsIds().add(connection.getEmail());
-        connection.getConnectionsIds().add(s.getEmail());
+        String status = objectNode.get("status").asText();
+        if (status.equals("accept")) {
+            s.getConnectionsIds().add(connection.getEmail());
+            connection.getConnectionsIds().add(s.getEmail());
+        }
+        s.getConnectionRequests().remove(connectionID);
         repository.save(s);
         repository.save(connection);
         return ResponseEntity.ok(s);
