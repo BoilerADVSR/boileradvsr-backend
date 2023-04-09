@@ -45,11 +45,12 @@ public class ChatController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @PutMapping("/{id}/addmessage")
-    public ResponseEntity<Chat> sendMessage(@PathVariable String id, @RequestBody ObjectNode objectNode) {
-        Chat chat = repository.findById(id).orElseThrow(RuntimeException::new);
+    @PutMapping("/addmessage")
+    public ResponseEntity<Chat> sendMessage(@RequestBody ObjectNode objectNode) {
+        String chatID = objectNode.get("id").asText();
         String text = objectNode.get("text").asText();
         String senderId = objectNode.get("sender").asText();
+        Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
 
         chat.addMessage(new Message(senderId, text));
         return ResponseEntity.ok(chat);
