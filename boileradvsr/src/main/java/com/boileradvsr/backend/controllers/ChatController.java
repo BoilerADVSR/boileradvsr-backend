@@ -21,9 +21,6 @@ import java.util.List;
 @RequestMapping("/chats")
 public class ChatController {
     public ChatRepository repository;
-
-    @Autowired
-    public NotifSendService NotifService;
     public ChatController(ChatRepository repository) {
         this.repository = repository;
     }
@@ -48,19 +45,14 @@ public class ChatController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @PutMapping("/{id}/addmessage")
-    public ResponseEntity<Chat> sendMessage(@PathVariable String id, @RequestBody ObjectNode objectNode) {
-        Chat chat = repository.findById(id).orElseThrow(RuntimeException::new);
+    @PutMapping("/addmessage")
+    public ResponseEntity<Chat> sendMessage(@RequestBody ObjectNode objectNode) {
+        String chatID = objectNode.get("id").asText();
         String text = objectNode.get("text").asText();
         String senderId = objectNode.get("sender").asText();
-        String recieverID="";
-        for (String i : chat.getNames()) {
-            if (!i.equals(senderId)) {
-                recieverID = i;
-            }
-        }
+        Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
+
         chat.addMessage(new Message(senderId, text));
-        NotifService.newNotif(recieverID,id);
         return ResponseEntity.ok(chat);
     }
 
