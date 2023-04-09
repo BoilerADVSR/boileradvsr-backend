@@ -1,6 +1,8 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.CourseRepository;
+import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;

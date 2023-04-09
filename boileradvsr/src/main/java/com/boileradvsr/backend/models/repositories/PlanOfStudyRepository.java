@@ -1,5 +1,6 @@
-package com.boileradvsr.backend.models;
+package com.boileradvsr.backend.models.repositories;
 
+import com.boileradvsr.backend.models.PlanOfStudy;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

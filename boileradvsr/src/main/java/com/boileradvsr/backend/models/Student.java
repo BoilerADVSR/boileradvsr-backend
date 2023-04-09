@@ -21,6 +21,7 @@ public class Student {
     String linkedIn;
     ArrayList<String> connectionsIds;
     ArrayList<String> connectionRequests;
+    ArrayList<String> chatIds;
     //TODO FIX THIS
     //temporary for backlog user story
     ArrayList<Course> backLog;
@@ -36,6 +37,7 @@ public class Student {
         backLog = new ArrayList<>();
         connectionsIds = new ArrayList<>();
         connectionRequests = new ArrayList<>();
+        chatIds = new ArrayList<>();
     }
 
     public void setGPA(double GPA) {
@@ -164,6 +166,14 @@ public class Student {
 
     public void setConnectionsIds(ArrayList<String> connectionsIds) {
         this.connectionsIds = connectionsIds;
+    }
+
+    public ArrayList<String> getChatIds() {
+        return chatIds;
+    }
+
+    public void setChatIds(ArrayList<String> chatIds) {
+        this.chatIds = chatIds;
     }
 
     @Override

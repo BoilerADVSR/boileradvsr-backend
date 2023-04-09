@@ -1,6 +1,10 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.ChatRepository;
+import com.boileradvsr.backend.models.repositories.CourseRepository;
+import com.boileradvsr.backend.models.repositories.DegreeRepository;
+import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -25,9 +29,10 @@ public class StudentController {
     public CourseRepository courseRepository;
     @Autowired
     public DegreeRepository degreeRepository;
-
     @Autowired
     public PassChangeService changeService;
+    @Autowired
+    public ChatRepository chatRepository;
 
     public StudentRepository repository;
 
@@ -241,6 +246,9 @@ public class StudentController {
         if (status.equals("accept")) {
             s.getConnectionsIds().add(connection.getEmail());
             connection.getConnectionsIds().add(s.getEmail());
+            Chat chat = new Chat(s.getEmail(), connection.getEmail());
+            chatRepository.save(chat);
+
         }
         s.getConnectionRequests().remove(connectionID);
         repository.save(s);

@@ -1,7 +1,7 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.Requirement;
-import com.boileradvsr.backend.models.RequirementRepository;
+import com.boileradvsr.backend.models.repositories.RequirementRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,14 +1,10 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.DegreeGraphRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @EnableMongoRepositories
