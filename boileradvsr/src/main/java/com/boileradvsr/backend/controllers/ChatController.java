@@ -21,6 +21,9 @@ import java.util.List;
 @RequestMapping("/chats")
 public class ChatController {
     public ChatRepository repository;
+
+    @Autowired
+    public NotifSendService notifSendService;
     public ChatController(ChatRepository repository) {
         this.repository = repository;
     }
@@ -51,8 +54,14 @@ public class ChatController {
         String text = objectNode.get("text").asText();
         String senderId = objectNode.get("sender").asText();
         Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
-
+        String recieverId = "";
+        for (String i : chat.getNames()) {
+            if (!i.equals(senderId)) {
+                recieverId = i;
+            }
+        }
         chat.addMessage(new Message(senderId, text));
+        notifSendService.newNotif(recieverId,chatID);
         return ResponseEntity.ok(chat);
     }
 
