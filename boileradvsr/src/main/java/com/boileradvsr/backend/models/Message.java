@@ -14,6 +14,26 @@ public class Message {
         this.text = text;
     }
 
+    public Message(String senderId, Course course) {
+        this.id = UUID.randomUUID().toString();
+        this.senderId = senderId;
+        text = formatCourse(course);
+
+    }
+
+
+    public String formatCourse(Course course) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(course.getCourseID()).append("\n");
+        sb.append(course.getCourseTitle()).append("\n");
+        sb.append("Credit Hours:" + course.getCreditHours()).append("\n");
+        sb.append("LINK:");
+
+        return sb.toString();
+    }
+
+
+
     public Message() {}
 
     public String getId() {

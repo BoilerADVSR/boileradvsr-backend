@@ -1,8 +1,10 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.Chat;
+import com.boileradvsr.backend.models.Course;
 import com.boileradvsr.backend.models.Message;
 import com.boileradvsr.backend.models.repositories.ChatRepository;
+import com.boileradvsr.backend.models.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import java.util.List;
 @EnableMongoRepositories
 @RequestMapping("/chats")
 public class ChatController {
+    @Autowired
+    public CourseRepository courseRepository;
     public ChatRepository repository;
     public ChatController(ChatRepository repository) {
         this.repository = repository;
@@ -53,6 +57,18 @@ public class ChatController {
         Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
 
         chat.addMessage(new Message(senderId, text));
+        repository.save(chat);
+        return ResponseEntity.ok(chat);
+    }
+
+    @PutMapping("/addmessage/course")
+    public ResponseEntity<Chat> sendCourseMessage(@RequestBody ObjectNode objectNode) {
+        String chatID = objectNode.get("id").asText();
+        String courseID = objectNode.get("courseID").asText();
+        String senderId = objectNode.get("sender").asText();
+        Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
+        Course course = courseRepository.findById(courseID).orElseThrow(RuntimeException::new);
+        chat.addMessage(new Message(senderId, course));
         repository.save(chat);
         return ResponseEntity.ok(chat);
     }
