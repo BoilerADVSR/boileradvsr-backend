@@ -30,7 +30,7 @@ public class ChatController {
         return repository.findAll();
     }
 
-    @GetMapping
+    @PutMapping
     public Chat getChat(@RequestBody ObjectNode objectNode) {
         String student1 = objectNode.get("student1").asText();
         String student2 = objectNode.get("student2").asText();
@@ -53,6 +53,7 @@ public class ChatController {
         Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
 
         chat.addMessage(new Message(senderId, text));
+        repository.save(chat);
         return ResponseEntity.ok(chat);
     }
 

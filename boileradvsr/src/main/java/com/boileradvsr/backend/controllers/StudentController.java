@@ -8,6 +8,7 @@ import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -244,11 +245,11 @@ public class StudentController {
         Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
         String status = objectNode.get("status").asText();
         if (status.equals("accept")) {
+            if (s.getConnectionsIds().contains(connection.getEmail())) return new ResponseEntity(HttpStatus.BAD_REQUEST);
             s.getConnectionsIds().add(connection.getEmail());
             connection.getConnectionsIds().add(s.getEmail());
             Chat chat = new Chat(s.getEmail(), connection.getEmail());
             chatRepository.save(chat);
-
         }
         s.getConnectionRequests().remove(connectionID);
         repository.save(s);

@@ -13,6 +13,7 @@ public class Message {
         this.senderId = senderId;
         this.text = text;
     }
+
     public Message() {}
 
     public String getId() {
