@@ -51,7 +51,7 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/login")
+    @PutMapping("/login")
     public Student login(@RequestBody ObjectNode objectNode) {
         String email = objectNode.get("email").asText();
         String password = objectNode.get("password").asText();
