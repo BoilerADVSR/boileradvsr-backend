@@ -1,6 +1,7 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.DegreeRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,9 +1,8 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.email.EmailSender;
-import com.boileradvsr.backend.email.EmailService;
 import com.boileradvsr.backend.models.Student;
-import com.boileradvsr.backend.models.StudentRepository;
+import com.boileradvsr.backend.models.repositories.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

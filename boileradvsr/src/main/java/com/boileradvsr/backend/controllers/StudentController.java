@@ -1,9 +1,14 @@
 package com.boileradvsr.backend.controllers;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.ChatRepository;
+import com.boileradvsr.backend.models.repositories.CourseRepository;
+import com.boileradvsr.backend.models.repositories.DegreeRepository;
+import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +30,10 @@ public class StudentController {
     public CourseRepository courseRepository;
     @Autowired
     public DegreeRepository degreeRepository;
-
     @Autowired
     public PassChangeService changeService;
+    @Autowired
+    public ChatRepository chatRepository;
 
     public StudentRepository repository;
 
@@ -213,6 +219,47 @@ public class StudentController {
         return s.getPlanOfStudy().requirementsLeft();
     }
 
+    @GetMapping("/{id}/connections")
+    public ArrayList<Student> getConnections(@PathVariable String id) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<Student> students = new ArrayList<>();
+        for (String studentID : s.getConnectionsIds()) {
+            students.add(repository.findById(studentID).orElseThrow(RuntimeException::new));
+        }
+        return students;
+    }
+
+
+    @PutMapping("/{id}/connection/request/{connectionID}")
+    public ResponseEntity requestConnection(@PathVariable String id, @PathVariable String connectionID) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
+        connection.getConnectionRequests().add(s.getEmail());
+        repository.save(connection);
+        return ResponseEntity.ok(s);
+    }
+
+    @PutMapping("/{id}/connection/handle/{connectionID}")
+    public ResponseEntity handleConnection(@PathVariable String id, @PathVariable String connectionID, @RequestBody ObjectNode objectNode) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
+        String status = objectNode.get("status").asText();
+        if (status.equals("accept")) {
+            if (s.getConnectionsIds().contains(connection.getEmail())) return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            s.getConnectionsIds().add(connection.getEmail());
+            connection.getConnectionsIds().add(s.getEmail());
+            Chat chat = new Chat(s.getEmail(), connection.getEmail());
+            chatRepository.save(chat);
+        }
+        s.getConnectionRequests().remove(connectionID);
+        repository.save(s);
+        repository.save(connection);
+        return ResponseEntity.ok(s);
+    }
+
+
+
+
     @PutMapping("/{id}")
     public ResponseEntity updateStudent(@PathVariable String id, @RequestBody Student student) {
         Student updatedStudent = repository.findById(id).orElseThrow(RuntimeException::new);
@@ -228,6 +275,7 @@ public class StudentController {
         updatedStudent.setAboutMe(student.getAboutMe());
         updatedStudent.setLinkedIn(student.getLinkedIn());
         updatedStudent.setBackLog(student.getBackLog());
+        updatedStudent.setConnectionsIds(student.getConnectionsIds());
         updatedStudent = repository.save(student);
         return ResponseEntity.ok(updatedStudent);
     }

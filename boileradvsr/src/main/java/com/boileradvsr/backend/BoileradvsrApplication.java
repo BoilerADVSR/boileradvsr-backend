@@ -1,6 +1,7 @@
 package com.boileradvsr.backend;
 
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private ProfessorRepository professorRepository;
     @Autowired
     private DegreeGraphRepository degreeGraphRepository;
+    @Autowired
+    private ChatRepository chatRepository;
 
 
     public static void main(String[] args) {
@@ -36,6 +39,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         courseRepository.deleteAll();
         degreeRepository.deleteAll();
         professorRepository.deleteAll();
+        chatRepository.deleteAll();
         studentRepository.save(new Student("Brandon", "hart", "bahart@purdue.edu", "pw"));
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
@@ -173,6 +177,9 @@ public class BoileradvsrApplication implements CommandLineRunner {
         graph.addEdge(5,9);
         graph.addEdge(5, 10);
         degreeGraphRepository.save(graph);
+
+        Chat chat = new Chat("g@purdue.edu", "bahart@purdue.edu");
+        chatRepository.save(chat);
 
 
 

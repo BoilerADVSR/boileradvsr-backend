@@ -1,19 +1,13 @@
 package com.boileradvsr.backend.controllers;
 
 import ch.qos.logback.core.model.Model;
-import com.boileradvsr.backend.models.CourseRepository;
 import com.boileradvsr.backend.models.*;
+import com.boileradvsr.backend.models.repositories.PhotoRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 
