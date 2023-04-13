@@ -6,8 +6,10 @@ import com.boileradvsr.backend.models.repositories.CourseRepository;
 import com.boileradvsr.backend.models.repositories.DegreeRepository;
 import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -258,6 +260,22 @@ public class StudentController {
         repository.save(connection);
         return ResponseEntity.ok(s);
     }
+
+    @PostMapping("/{id}/removechatnotification/{sender}")
+    public ResponseEntity removeChatNotification(@PathVariable String id, @PathVariable String sender) {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        ArrayList<String> notifications = student.getNotifications();
+        for (int i = 0; i < notifications.size(); i++) {
+            if (notifications.get(i).contains(sender)) {
+                notifications.remove(i);
+                i--;
+            }
+        }
+        repository.save(student);
+        return ResponseEntity.ok(student);
+
+    }
+
 
 
 
