@@ -80,14 +80,16 @@ public class ChatController {
         String courseID = objectNode.get("courseID").asText();
         String senderId = objectNode.get("sender").asText();
         Chat chat = repository.findById(chatID).orElseThrow(RuntimeException::new);
-        Course course = courseRepository.findById(courseID).orElseThrow(RuntimeException::new);
-        chat.addMessage(new Message(senderId, course));
-        repository.save(chat);
-        //add notification
+
         ArrayList<String> names = new ArrayList<>(chat.getNames());
         names.remove(senderId);
         String receiverID = names.get(0);
         Student receiver = studentRepository.findById(receiverID).orElseThrow(RuntimeException::new);
+
+        Course course = courseRepository.findById(courseID).orElseThrow(RuntimeException::new);
+        chat.addMessage(new Message(senderId, course, receiverID));
+        repository.save(chat);
+        //add notification
         receiver.getNotifications().add("New chat from " + senderId + "!");
         studentRepository.save(receiver);
         return ResponseEntity.ok(chat);

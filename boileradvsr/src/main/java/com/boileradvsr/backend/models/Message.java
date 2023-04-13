@@ -14,20 +14,21 @@ public class Message {
         this.text = text;
     }
 
-    public Message(String senderId, Course course) {
+    public Message(String senderId, Course course, String receiverId) {
         this.id = UUID.randomUUID().toString();
         this.senderId = senderId;
-        text = formatCourse(course);
+        text = formatCourse(course, receiverId);
 
     }
 
 
-    public String formatCourse(Course course) {
+    public String formatCourse(Course course, String receiverId) {
+        String link = "localhost:3000/" + receiverId + "/" + course.getCourseID();
         StringBuffer sb = new StringBuffer();
         sb.append(course.getCourseID()).append("\n");
         sb.append(course.getCourseTitle()).append("\n");
-        sb.append("Credit Hours:" + course.getCreditHours()).append("\n");
-        sb.append("LINK:");
+        sb.append("Credit Hours:").append(course.getCreditHours()).append("\n");
+        sb.append("LINK: ").append(link);
 
         return sb.toString();
     }
