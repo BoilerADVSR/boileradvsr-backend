@@ -24,6 +24,7 @@ public class Student {
     ArrayList<String> chatIds;
     //TODO FIX THIS
     //temporary for backlog user story
+    ArrayList<String> notifications;
     ArrayList<Course> backLog;
 
     public Student(String firstName, String lastName, String email, String password) {
@@ -38,6 +39,7 @@ public class Student {
         connectionsIds = new ArrayList<>();
         connectionRequests = new ArrayList<>();
         chatIds = new ArrayList<>();
+        notifications = new ArrayList<>();
     }
 
     public void setGPA(double GPA) {
@@ -174,6 +176,14 @@ public class Student {
 
     public void setChatIds(ArrayList<String> chatIds) {
         this.chatIds = chatIds;
+    }
+
+    public ArrayList<String> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(ArrayList<String> notifications) {
+        this.notifications = notifications;
     }
 
     @Override

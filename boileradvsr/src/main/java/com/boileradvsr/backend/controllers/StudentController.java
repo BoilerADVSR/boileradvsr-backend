@@ -161,7 +161,9 @@ public class StudentController {
         ArrayList<Course> coursesTaken = s.getPlanOfStudy().listCoursesTaken();
         //default sort is avgGPA
         String sort = "N/A";
+        int level = -1;
         if (params.containsKey("sort")) sort = params.get("sort");
+        if (params.containsKey("level")) level = Integer.parseInt(params.get("level"));
 
         ArrayList<Course> eligibleCourses = new ArrayList<>();
         DegreeGraph graph = degreeGraphController.getDegree("CS");
@@ -184,7 +186,7 @@ public class StudentController {
             if (concentration.getDegreeType() == Degree.DEGREETYPE.CONCENTRATION) concentrations.add(concentration);
         }
 
-        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses, sort);
+        ArrayList<String> courseNames = Suggest.suggestASemester(s, graph, concentrations, eligibleCourses, sort, level);
         ArrayList<Course> courses = new ArrayList<>();
         for (String courseId : courseNames) {
             courses.add(courseRepository.findCourseByCourseID(courseId));
@@ -276,6 +278,7 @@ public class StudentController {
         updatedStudent.setLinkedIn(student.getLinkedIn());
         updatedStudent.setBackLog(student.getBackLog());
         updatedStudent.setConnectionsIds(student.getConnectionsIds());
+        updatedStudent.setNotifications(student.getNotifications());
         updatedStudent = repository.save(student);
         return ResponseEntity.ok(updatedStudent);
     }

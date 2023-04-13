@@ -5,17 +5,22 @@ import java.util.ArrayList;
 public class Suggest {
 
 
-    public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives, String sort) {
+    public static ArrayList<String> suggestASemester(Student student, DegreeGraph graph, ArrayList<Degree> concentrations,ArrayList<Course> availableElectives, String sort, int level) {
         ArrayList<Course> coursesTaken = student.getPlanOfStudy().listCoursesTaken();
         ArrayList<String> suggestedCore = graph.getNextEligibleClassesController(coursesTaken, concentrations);
-
         if (sort.equals("rating")) {
-            availableElectives = rankByRating(availableElectives);
+            rankByRating(availableElectives);
         } else {
-            availableElectives = rankByAvgGPA(availableElectives);
-
+            rankByAvgGPA(availableElectives);
         }
-
+        if (level != -1) {
+            for (int i = 0; i < availableElectives.size(); i++) {
+                if (Character.getNumericValue(availableElectives.get(i).getCourseIdNumber().charAt(0)) != level) {
+                    availableElectives.remove(i);
+                    i--;
+                }
+            }
+        }
         ArrayList<String> suggestedSemester = new ArrayList<>();
         if (suggestedCore.size() > 2) {
             suggestedSemester.add(suggestedCore.get(0));
