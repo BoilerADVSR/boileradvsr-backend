@@ -52,7 +52,7 @@ public class Course {
         this.college = college;
         this.grade = grade;
         this.creditHours = creditHours;
-        gradeDistribution = new double[13];
+        gradeDistribution = null;
         //TODO needs fixing (set a default rating)
     }
 

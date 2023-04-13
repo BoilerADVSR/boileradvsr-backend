@@ -23,7 +23,7 @@ public class Message {
 
 
     public String formatCourse(Course course, String receiverId) {
-        String link = "localhost:3000/" + receiverId + "/" + course.getCourseID();
+        String link = "localhost:3000/course/" + receiverId + "/" + course.getCourseID();
         StringBuffer sb = new StringBuffer();
         sb.append(course.getCourseID()).append("\n");
         sb.append(course.getCourseTitle()).append("\n");

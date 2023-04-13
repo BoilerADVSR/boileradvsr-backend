@@ -96,7 +96,7 @@ public class StudentController {
     }
 
 
-        @PostMapping("/{id}/plan/addcourse")
+    @PostMapping("/{id}/plan/addcourse")
     public ResponseEntity addCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
         int year = Integer.parseInt(objectNode.get("year").asText());
         Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText());
@@ -111,6 +111,29 @@ public class StudentController {
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
         semester.addCourse(new Course(courseIdDepartment, courseIdNumber, courseTitle, department, college, creditHours, grade));
+        student.getPlanOfStudy().calculateGPA();
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
+    @PostMapping("/{id}/plan/addcoursebyid")
+    public ResponseEntity addNewCourse(@PathVariable String id, @RequestBody ObjectNode objectNode) throws URISyntaxException {
+        int year = Integer.parseInt(objectNode.get("year").asText());
+        Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText().toUpperCase());
+        String courseId = objectNode.get("courseId").asText();
+        double grade = Double.parseDouble(objectNode.get("grade").asText());
+        courseId = courseId.toUpperCase();
+
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
+        if (semester == null) {
+            semester = new Semester(year, season);
+            student.getPlanOfStudy().addSemester(semester);
+        }
+        Course c = courseRepository.findById(courseId).orElseThrow(RuntimeException::new);
+        Course course = new Course(c.getCourseIdDepartment(), c.getCourseIdNumber(), c.getCourseTitle(),
+                c.getDepartment(), c.getCollege(), c.getCreditHours(),grade);
+        semester.addCourse(course);
         student.getPlanOfStudy().calculateGPA();
         repository.save(student);
         return ResponseEntity.ok(student);
