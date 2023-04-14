@@ -1,5 +1,6 @@
 package com.boileradvsr.backend.controllers;
 
+import ch.qos.logback.core.model.Model;
 import com.boileradvsr.backend.models.*;
 import com.boileradvsr.backend.models.repositories.ChatRepository;
 import com.boileradvsr.backend.models.repositories.CourseRepository;
@@ -7,16 +8,20 @@ import com.boileradvsr.backend.models.repositories.DegreeRepository;
 import com.boileradvsr.backend.models.repositories.StudentRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.coyote.Response;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.repository.config.RepositoryNameSpaceHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +39,9 @@ public class StudentController {
     public DegreeRepository degreeRepository;
     @Autowired
     public PassChangeService changeService;
+
+    @Autowired
+    public ImageService imageService;
     @Autowired
     public ChatRepository chatRepository;
 
@@ -302,6 +310,24 @@ public class StudentController {
         return ResponseEntity.ok(student);
 
     }
+
+    @PostMapping("/{id}/uploadpfp")
+    public ResponseEntity uploadImage(@PathVariable String id,
+                              @RequestParam("image") MultipartFile image)
+            throws IOException {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        imageService.addImage(student, image);
+        repository.save(student);
+        return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("/{id}/pfp")
+    public String getImage (@PathVariable String id) {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        Binary image = imageService.rImage(student);
+        return Base64.getEncoder().encodeToString(image.getData());
+    }
+
 
 
 
