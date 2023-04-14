@@ -53,6 +53,29 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
+    @GetMapping("/search/all")
+    public ArrayList<String> getStudentsID(@RequestParam Map<String, String> params) {
+        ArrayList<String> studentIds = new ArrayList<>();
+        List<Student> students = repository.findAll();
+        if (params.containsKey("department")) {
+            ArrayList<Student> temp = new ArrayList<>();
+            for (Student s : getStudents()) {
+                if (s.getPlanOfStudy() == null) break;
+                for (Degree d : s.getPlanOfStudy().getDegrees()) {
+                    if (d.getDepartment().equals(params.get("department"))) {
+                        temp.add(s);
+                        break;
+                    }
+                }
+            }
+            students = temp.stream().toList();
+        }
+        for (Student s : students) {
+            studentIds.add(s.getEmail());
+        }
+        return studentIds;
+    }
+
     @PutMapping("/login")
     public Student login(@RequestBody ObjectNode objectNode) {
         String email = objectNode.get("email").asText();

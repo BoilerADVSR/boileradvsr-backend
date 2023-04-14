@@ -41,8 +41,9 @@ public class BoileradvsrApplication implements CommandLineRunner {
         professorRepository.deleteAll();
         chatRepository.deleteAll();
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
-        degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science"));
+        Degree ds = new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Mathematics", "Science", "Math"));
+        degreeRepository.save(ds);
 
         Degree csML = new Degree(Degree.DEGREETYPE.CONCENTRATION, "Machine Learning", "Science", "Computer Science");
         Degree csSWE = new Degree(Degree.DEGREETYPE.CONCENTRATION, "Software Engineering", "Science", "Computer Science");
@@ -147,6 +148,13 @@ public class BoileradvsrApplication implements CommandLineRunner {
         g.getConnectionsIds().add("bahart@purdue.edu");
         studentRepository.save(g);
         studentRepository.save(b);
+
+        Student s = new Student("sample", "student", "s@purdue.edu", "pw");
+        PlanOfStudy spos = new PlanOfStudy();
+        spos.getDegrees().add(ds);
+        s.setPlanOfStudy(spos);
+        studentRepository.save(s);
+
 
         Professor turkstra = new Professor("Jeff", "Turkstra", "Computer Science");
 
