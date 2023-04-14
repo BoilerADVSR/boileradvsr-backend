@@ -53,8 +53,9 @@ public class StudentController {
         return repository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/search/all")
-    public ArrayList<String> getStudentsID(@RequestParam Map<String, String> params) {
+    @GetMapping("{id}/search/all")
+    public ArrayList<String> getStudentsID(@PathVariable String id, @RequestParam Map<String, String> params) {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
         ArrayList<String> studentIds = new ArrayList<>();
         List<Student> students = repository.findAll();
         if (params.containsKey("department")) {
@@ -73,6 +74,9 @@ public class StudentController {
         for (Student s : students) {
             studentIds.add(s.getEmail());
         }
+        studentIds.remove(student.getEmail());
+        studentIds.removeAll(student.getConnectionsIds());
+
         return studentIds;
     }
 
