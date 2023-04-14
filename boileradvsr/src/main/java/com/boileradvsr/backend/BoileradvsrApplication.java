@@ -128,6 +128,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
         csML.addRequirement(new Requirement("Compilers", Requirement.Type.CORE, cs352));
         csML.addRequirement(new Requirement("Analysis of Algorithms",Requirement.Type.CORE, cs381));
         csML.addRequirement(new Requirement("Data Mining and ML",Requirement.Type.CORE, cs373));
+        degreeRepository.save(csML);
+        degreeRepository.save(csSWE);
 
 
         Student g = new Student("Garrett", "O'Brien", "g@purdue.edu", "pw");

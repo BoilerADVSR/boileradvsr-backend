@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,17 @@ public class DegreeController {
         }
         return repository.findAll();
     }
+
+    @GetMapping("/alldept")
+    public List<String> getAllDepartments() {
+        List<Degree> degrees = repository.findAll();
+        ArrayList<String> departmentNames = new ArrayList<>();
+        for (Degree degree : degrees) {
+            departmentNames.add(degree.getDepartment());
+        }
+        return departmentNames.stream().distinct().toList();
+    }
+
     @PostMapping
     public ResponseEntity createDegree(@RequestBody Degree degree) throws URISyntaxException {
         Degree savedDegree = repository.save(degree);
