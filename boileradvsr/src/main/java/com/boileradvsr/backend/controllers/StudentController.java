@@ -236,7 +236,6 @@ public class StudentController {
 
 
 
-
     @GetMapping("/{id}/plan/requirements")
     public ArrayList<Requirement> requirementsLeft(@PathVariable String id) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
@@ -251,6 +250,14 @@ public class StudentController {
             students.add(repository.findById(studentID).orElseThrow(RuntimeException::new));
         }
         return students;
+    }
+
+    @PutMapping("/{id}/plan/getsemester")
+    public Semester getSemester(@PathVariable String id, @RequestBody ObjectNode objectNode) {
+        Student s = repository.findById(id).orElseThrow(RuntimeException::new);
+        int year = Integer.parseInt(objectNode.get("year").asText());
+        Semester.Season season = Semester.Season.valueOf(objectNode.get("season").asText().toUpperCase());
+        return s.getPlanOfStudy().getSemesterByDate(season, year);
     }
 
 
