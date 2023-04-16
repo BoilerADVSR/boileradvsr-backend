@@ -7,11 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.ArrayList;
 
 @SpringBootApplication
 @EnableMongoRepositories
+@EnableScheduling
 
 public class BoileradvsrApplication implements CommandLineRunner {
 
@@ -197,7 +199,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         Chat chat = new Chat("g@purdue.edu", "bahart@purdue.edu");
         chatRepository.save(chat);
 
-        Event event = new Event("Project Presentation", 2023, 4, 21);
+        Event event = new Event("Project Presentation", 2023, 5, 17);
         eventRepository.save(event);
 
 
