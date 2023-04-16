@@ -27,6 +27,8 @@ public class BoileradvsrApplication implements CommandLineRunner {
     private DegreeGraphRepository degreeGraphRepository;
     @Autowired
     private ChatRepository chatRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
 
     public static void main(String[] args) {
@@ -40,6 +42,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         degreeRepository.deleteAll();
         professorRepository.deleteAll();
         chatRepository.deleteAll();
+        eventRepository.deleteAll();
         Degree compsci = new Degree(Degree.DEGREETYPE.MAJOR, "Computer Science", "Science", "Computer Science");
         Degree ds = new Degree(Degree.DEGREETYPE.MAJOR, "Data Science", "Science", "Computer Science");
         degreeRepository.save(new Degree(Degree.DEGREETYPE.MAJOR, "Mathematics", "Science", "Math"));
@@ -193,6 +196,9 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
         Chat chat = new Chat("g@purdue.edu", "bahart@purdue.edu");
         chatRepository.save(chat);
+
+        Event event = new Event("Project Presentation", 2023, 4, 21);
+        eventRepository.save(event);
 
 
 
