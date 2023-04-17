@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,11 @@ import java.util.ArrayList;
 @EnableMongoRepositories
 
 public class BoileradvsrApplication implements CommandLineRunner {
+
+    @GetMapping("/message")
+    public String message() {
+        return "Successfully deployed!";
+    }
 
     @Autowired
     private StudentRepository studentRepository;
