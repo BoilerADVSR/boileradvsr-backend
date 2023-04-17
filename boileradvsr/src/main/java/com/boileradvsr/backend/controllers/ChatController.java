@@ -46,7 +46,12 @@ public class ChatController {
         ArrayList<String> names = new ArrayList<>();
         names.add(student1);
         names.add(student2);
-        return repository.findChatByNamesContaining(names);
+        List<Chat> allChats = repository.findAll();
+        for (Chat chat : allChats) {
+            if (chat.getNames().containsAll(names)) return chat;
+        }
+        //error
+        return null;
     }
 
     @GetMapping("/{id}")
