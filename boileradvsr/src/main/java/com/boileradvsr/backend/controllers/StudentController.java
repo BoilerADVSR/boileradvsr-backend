@@ -292,6 +292,7 @@ public class StudentController {
     public ResponseEntity requestConnection(@PathVariable String id, @PathVariable String connectionID) {
         Student s = repository.findById(id).orElseThrow(RuntimeException::new);
         Student connection = repository.findById(connectionID).orElseThrow(RuntimeException::new);
+        if (connection.getConnectionRequests().contains(s.getEmail())) return new ResponseEntity(HttpStatus.BAD_REQUEST);
         connection.getConnectionRequests().add(s.getEmail());
         repository.save(connection);
         return ResponseEntity.ok(s);
@@ -356,6 +357,7 @@ public class StudentController {
     }
     @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
+        if (student.getPlanOfStudy() == null) student.setPlanOfStudy(new PlanOfStudy());
         Student savedStudent = repository.save(student);
         return ResponseEntity.created(new URI("/students/" + savedStudent.getEmail())).body(savedStudent);
     }
