@@ -47,12 +47,33 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public Course getCourse(@PathVariable String id) {
-        return repository.findById(id).orElseThrow(RuntimeException::new);
+        Course c = repository.findCourseByCourseID(id);
+        return c;
     }
 
+//    @PostMapping
+//    public ResponseEntity createCourse(@RequestBody Course course) throws URISyntaxException {
+//        System.out.println("1");
+//        Course savedCourse = repository.save(course);
+//        System.out.println(savedCourse);
+//        return ResponseEntity.created(new URI("/courses/" + savedCourse.getCourseID())).body(savedCourse);
+//    }
+
     @PostMapping
-    public ResponseEntity createCourse(@RequestBody Course course) throws URISyntaxException {
-        Course savedCourse = repository.save(course);
+    public ResponseEntity createCourse(@RequestBody String s) throws URISyntaxException {
+        System.out.println(s);
+        String[] parts = s.split(",");
+        String abbr = parts[0];
+        String num = parts[1];
+        String title = parts[2];
+        String department = parts[3];
+        String college = parts[4];
+        int credits = (int) Double.parseDouble(parts[5]);
+
+        Course c = new Course(abbr, num, title, department, college, credits);
+
+        Course savedCourse = repository.save(c);
+        System.out.println(savedCourse);
         return ResponseEntity.created(new URI("/courses/" + savedCourse.getCourseID())).body(savedCourse);
     }
 

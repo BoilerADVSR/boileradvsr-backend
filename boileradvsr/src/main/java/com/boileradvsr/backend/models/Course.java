@@ -3,6 +3,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Document(collection = "courseCatalog")
 public class Course {
@@ -25,7 +26,6 @@ public class Course {
         STUDENT,
         DATABASE
     }    
-
 
     public Course(String courseIdDepartment, String courseIdNumber, String courseTitle, String department, String college, int creditHours) {
         this.courseID = courseIdDepartment + courseIdNumber;
@@ -199,5 +199,24 @@ public class Course {
 
     public void setDiscussion(ArrayList<Question> discussion) {
         this.discussion = discussion;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID='" + courseID + '\'' +
+                ", courseIdDepartment='" + courseIdDepartment + '\'' +
+                ", courseIdNumber='" + courseIdNumber + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", department='" + department + '\'' +
+                ", college='" + college + '\'' +
+                ", averageRating=" + averageRating +
+                ", averageGPA=" + averageGPA +
+                ", grade=" + grade +
+                ", creditHours=" + creditHours +
+                ", gradeDistribution=" + Arrays.toString(gradeDistribution) +
+                ", reviews=" + reviews +
+                ", discussion=" + discussion +
+                '}';
     }
 }
