@@ -138,7 +138,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         degreeRepository.save(csSWE);
 
 
-        Student g = new Student("Garrett", "O'Brien", "g@purdue.edu", "pw");
+        Student g = new Student("Garrett", "O'Brien", "aasaleh@purdue.edu", "pw");
         PlanOfStudy gpos = new PlanOfStudy();
         Semester s2023 = new Semester(2023, Semester.Season.SPRING);
         gpos.addSemester(s2023);
@@ -154,7 +154,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         studentRepository.save(g);
         studentRepository.save(b);
 
-        Student s = new Student("sample", "student", "s@purdue.edu", "pw");
+        Student s = new Student("sample", "student", "gcobrien@purdue.edu", "pw");
         PlanOfStudy spos = new PlanOfStudy();
         spos.getDegrees().add(ds);
         s.setPlanOfStudy(spos);
@@ -199,7 +199,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
         Chat chat = new Chat("g@purdue.edu", "bahart@purdue.edu");
         chatRepository.save(chat);
 
-        Event event = new Event("Project Presentation", 2023, 5, 17);
+        Event event = new Event("Project Presentation", 2023, 4, 18);
         eventRepository.save(event);
 
 

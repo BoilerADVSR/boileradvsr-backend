@@ -3,11 +3,14 @@ package com.boileradvsr.backend.controllers;
 import com.boileradvsr.backend.models.DegreeGraph;
 import com.boileradvsr.backend.models.*;
 import com.boileradvsr.backend.models.repositories.EventRepository;
+import com.boileradvsr.backend.models.repositories.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -17,9 +20,16 @@ import java.util.List;
 public class EventController {
     public EventRepository repository;
 
+    @Autowired
+    public StudentRepository srepo;
+
+    @Autowired
+    public EventReminderService reminderService;
+
     public EventController(EventRepository repository) {this.repository = repository;}
 
-    @Scheduled(fixedRate = 86400000)
+
+    @Scheduled(fixedRate = 86400000, initialDelay = 5000)
     public void execute() {
 
         LocalDate localDate = LocalDate.now();
@@ -30,9 +40,10 @@ public class EventController {
              repository.findAll()) {
             if (r.getYear() == year) {
                 if (r.getMonth() == month){
-                    if (r.getDay() == day || r.getDay() == day + 1) {
+                    if (r.getDay() == day) {
                         //todo
-                        System.out.println("event today!");
+                        List<Student> list = srepo.findAll();
+                        reminderService.upcoming(list, r);
                     }
                 }
             }
@@ -42,13 +53,12 @@ public class EventController {
         day = localDate.getDayOfMonth();
         month = localDate.getMonthValue();
         year = localDate.getYear();
-        for (Event r:
-                repository.findAll()) {
+        for (Event r: repository.findAll()) {
             if (r.getYear() == year) {
                 if (r.getMonth() == month){
-                    if (r.getDay() == day || r.getDay() == day + 1) {
-                        //todo
-                        System.out.println("event today!");
+                    if (r.getDay() == day) {
+                        List<Student> list = srepo.findAll();
+                        reminderService.upcoming(list, r);
                     }
                 }
             }

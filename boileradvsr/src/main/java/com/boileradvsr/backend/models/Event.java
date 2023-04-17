@@ -47,4 +47,5 @@ public class Event {
     public void setMonth(int month) {
         this.month = month;
     }
+
 }
