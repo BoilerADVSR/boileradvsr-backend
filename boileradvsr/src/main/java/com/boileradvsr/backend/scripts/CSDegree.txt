@@ -1,0 +1,19 @@
+Degree:Computer Science
+Type:Major
+College:Science
+CORE;
+Department:Computer Science
+Multivariate Calculus:MA26100
+Linear Algebra:MA26500,MA35100
+Object-Oriented Programming:CS18000
+Foundations Of Computer Science:CS18200
+Programming in C:CS24000
+Computer Architecture:CS25200
+Data Structures and Algorithms:CS25100
+Systems Programming:CS25200
+ELECTIVE;
+First-Year Composition:SCLA10100
+Technical Writing & Presentation:COM21700
+Language:SPAN101,SPAN102
+
+
