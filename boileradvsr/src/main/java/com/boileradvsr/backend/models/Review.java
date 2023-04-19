@@ -2,6 +2,7 @@ package com.boileradvsr.backend.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Document(collection = "reviews")
@@ -11,6 +12,7 @@ public class Review {
     String course;
     double overallRating;
     String reviewText;
+    ArrayList<String> degrees;
     //Date dateOfReview;
 
 
@@ -26,6 +28,14 @@ public class Review {
         this.reviewText = reviewText;
         this.course = course;
         this.overallRating = overallRating;
+    }
+
+    public Review(String studentReviewer, ArrayList<String> degrees, String course, String reviewText, double overallRating) {
+        this.studentReviewer = studentReviewer;
+        this.reviewText = reviewText;
+        this.course = course;
+        this.overallRating = overallRating;
+        this.degrees = degrees;
     }
 
     public Review(String studentReviewer, String course, double overallRating) {
@@ -79,4 +89,19 @@ public class Review {
         return studentReviewer;
     }
 
+    public String getCourse() {
+        return course;
+    }
+
+    public ArrayList<String> getDegrees() {
+        return degrees;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public void setDegrees(ArrayList<String> degrees) {
+        this.degrees = degrees;
+    }
 }

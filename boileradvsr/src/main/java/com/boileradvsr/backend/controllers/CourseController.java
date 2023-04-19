@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +86,16 @@ public class CourseController {
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
         //just add student email as one of the parameters to creating each review
         //or just
-        Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText, rating);
+        ArrayList<Degree> majors = student.getPlanOfStudy().getDegrees();
+        for (int i = 0; i < majors.size(); i++) {
+            if (majors.get(i).getDegreeType() != Degree.DEGREETYPE.MAJOR) {
+                majors.remove(i);
+                i--;
+            }
+        }
+        ArrayList<String> majorNames = new ArrayList<>();
+        for (Degree degree : majors) majorNames.add(degree.getDegreeTitle());
+        Review review = new Review(student.getFirstName() + " " + student.getLastName(), majorNames, courseID, reviewText, rating);
         course.addReview(review);
         student.addReview(review);
         repository.save(course);
