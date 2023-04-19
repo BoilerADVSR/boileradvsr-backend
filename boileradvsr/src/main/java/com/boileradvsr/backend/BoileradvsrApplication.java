@@ -15,22 +15,6 @@ import java.util.ArrayList;
 
 public class BoileradvsrApplication implements CommandLineRunner {
 
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private DegreeRepository degreeRepository;
-    @Autowired
-    private ProfessorRepository professorRepository;
-    @Autowired
-    private DegreeGraphRepository degreeGraphRepository;
-    @Autowired
-    private ChatRepository chatRepository;
-    @Autowired
-    private EventRepository eventRepository;
-
-
     public static void main(String[] args) {
         SpringApplication.run(BoileradvsrApplication.class, args);
     }
