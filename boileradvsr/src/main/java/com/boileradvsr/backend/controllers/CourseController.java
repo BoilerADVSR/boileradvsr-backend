@@ -60,13 +60,13 @@ public class CourseController {
     }
     @PostMapping("/database/create")
     public ResponseEntity<Course> createCourse(@RequestBody String courseInfo) {
-        String[] info = courseInfo.split(",");
+        String[] info = courseInfo.split("><");
         String courseIdDepartment = info[0];
         String courseIdNumber = info[1];
         String courseTitle = info[2];
         String department = info[3];
         String college = info[4];
-        int creditHours = Integer.parseInt(info[5]);
+        int creditHours =(int) Double.parseDouble(info[5]);
         Course course = new Course(courseIdDepartment,courseIdNumber,courseTitle,department,college,creditHours);
         repository.save(course);
         return ResponseEntity.ok(course);

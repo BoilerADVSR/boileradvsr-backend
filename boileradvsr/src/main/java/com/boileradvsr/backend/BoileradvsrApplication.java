@@ -37,11 +37,7 @@ public class BoileradvsrApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        courseRepository.deleteAll();
-
         System.out.println("running");
-
-
     }
 
 }
