@@ -82,6 +82,8 @@ public class CourseController {
 
         Student student = studentRepository.findById(studentId).orElseThrow(RuntimeException::new);
         Course course = repository.findById(id).orElseThrow(RuntimeException::new);
+        //just add student email as one of the parameters to creating each review
+        //or just
         Review review = new Review(student.getFirstName() + " " + student.getLastName(), courseID, reviewText, rating);
         course.addReview(review);
         student.addReview(review);

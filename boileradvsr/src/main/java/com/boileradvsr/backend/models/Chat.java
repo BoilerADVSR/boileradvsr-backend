@@ -53,4 +53,12 @@ public class Chat {
         messages.add(message);
     }
 
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "id='" + id + '\'' +
+                ", names=" + names +
+                ", messages=" + messages +
+                '}';
+    }
 }
