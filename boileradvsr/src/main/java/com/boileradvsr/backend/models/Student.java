@@ -41,6 +41,7 @@ public class Student {
         connectionRequests = new ArrayList<>();
         chatIds = new ArrayList<>();
         notifications = new ArrayList<>();
+        profilePicture = "https://marcom.purdue.edu/app/uploads/2022/09/PU-Seal-600x600.jpg";
     }
 
     public void setGPA(double GPA) {
@@ -207,6 +208,14 @@ public class Student {
                 ", planOfStudy=" + planOfStudy +
                 ", academicAdvisors=" + academicAdvisors +
                 ", reviews=" + reviews +
+                ", aboutMe='" + aboutMe + '\'' +
+                ", linkedIn='" + linkedIn + '\'' +
+                ", connectionsIds=" + connectionsIds +
+                ", connectionRequests=" + connectionRequests +
+                ", chatIds=" + chatIds +
+                ", notifications=" + notifications +
+                ", backLog=" + backLog +
+                ", profilePicture='" + profilePicture + '\'' +
                 '}';
     }
 }
