@@ -26,6 +26,7 @@ public class Student {
     //temporary for backlog user story
     ArrayList<String> notifications;
     ArrayList<Course> backLog;
+    String profilePicture;
 
     public Student(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
@@ -184,6 +185,14 @@ public class Student {
 
     public void setNotifications(ArrayList<String> notifications) {
         this.notifications = notifications;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
     @Override

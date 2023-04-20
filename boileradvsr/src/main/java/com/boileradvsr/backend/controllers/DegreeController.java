@@ -90,6 +90,7 @@ public class DegreeController {
 
         for (int i = 4; i < lines.size(); i++) {
             line = lines.get(i);
+            //System.out.println(line);
             if (line.equals("CORE")) {
                 reqType = Requirement.Type.CORE;
                 continue;
@@ -102,6 +103,7 @@ public class DegreeController {
             String requirementName = line.substring(0, semi);
             ArrayList<Course> classes = new ArrayList<>();
             for (String courseID : classList.split(",")) {
+                if (courseID.contains("\n")) courseID = courseID.substring(0, courseID.length() - 1);
                 //System.out.println(courseID);
                 classes.add(courseRepository.findById(courseID).orElseThrow(RuntimeException::new));
             }

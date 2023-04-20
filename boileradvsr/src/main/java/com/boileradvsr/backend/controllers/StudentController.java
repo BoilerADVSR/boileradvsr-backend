@@ -352,6 +352,7 @@ public class StudentController {
         updatedStudent.setBackLog(student.getBackLog());
         updatedStudent.setConnectionsIds(student.getConnectionsIds());
         updatedStudent.setNotifications(student.getNotifications());
+        updatedStudent.setProfilePicture(student.getProfilePicture());
         updatedStudent = repository.save(student);
         return ResponseEntity.ok(updatedStudent);
     }

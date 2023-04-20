@@ -1,0 +1,10 @@
+Degree:Machine Intelligence
+Type:Concentration
+College:Science
+Department:Computer Science
+CORE
+Data Mining and Machine Learning:CS37300
+Introduction to the Analysis of Algorithms:CS38100
+Artificial Intelligence/Web Information:CS47100,CS47300
+Applied Regression Analysis:MA41600,STAT51200
+Selective:CS31400,CS34800,CS35200,CS43900,CS44000,CS44800,CS45600,CS47500,CS48300,CS57700,CS57800

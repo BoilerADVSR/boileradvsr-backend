@@ -1,0 +1,11 @@
+Degree:Software Engineering
+Type:Concentration
+College:Science
+Department:Computer Science
+CORE
+Software Engineering:CS30700
+Compilers or Operating Systems:CS35200,CS35400
+Introduction to the Analysis of Algorithms:CS38100
+Software Engineering Senior Project:CS40700
+Software Testing:CS40800
+Selective:CS34800,CS35300,CS37300,CS42200,CS42600,CS44800,CS45600,CS47300
