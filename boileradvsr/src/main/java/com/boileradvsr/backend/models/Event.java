@@ -5,46 +5,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="calendar")
 public class Event {
     private String title;
-    private int year;
-    private int month;
-    private int day;
+    private String date;
 
-    public Event(String title, int year, int month, int day) {
+    public Event(String title, String date) {
         this.title = title;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.date = date;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public int getMonth() {
-        return month;
+    public String getDate() {
+        return date;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
+    public void setDate(String date) {
+        this.date = date;
     }
 }
