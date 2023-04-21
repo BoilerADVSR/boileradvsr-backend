@@ -30,6 +30,9 @@ public class ChatController {
     @Autowired
     public StudentRepository studentRepository;
     public ChatRepository repository;
+
+    @Autowired
+    public NotifSendService notifSendService;
     public ChatController(ChatRepository repository) {
         this.repository = repository;
     }
@@ -76,6 +79,7 @@ public class ChatController {
         Student receiver = studentRepository.findById(receiverID).orElseThrow(RuntimeException::new);
         receiver.getNotifications().add("New chat from " + senderId + "!");
         studentRepository.save(receiver);
+        notifSendService.newNotif(receiverID,chatID);
         return ResponseEntity.ok(chat);
     }
 
