@@ -36,12 +36,11 @@ public class EventController {
         int day = localDate.getDayOfMonth();
         int month = localDate.getMonthValue();
         int year = localDate.getYear();
-        for (Event r:
-                repository.findAll()) {
-            if (r.getYear() == year) {
-                if (r.getMonth() == month){
-                    if (r.getDay() == day) {
-                        //todo
+        for (Event r: repository.findAll()) {
+            LocalDate eDate = LocalDate.parse(r.getDate());
+            if (eDate.getYear() == year) {
+                if (eDate.getMonthValue() == month){
+                    if (eDate.getDayOfMonth() == day) {
                         List<Student> list = srepo.findAll();
                         reminderService.upcoming(list, r);
                     }
@@ -54,9 +53,10 @@ public class EventController {
         month = localDate.getMonthValue();
         year = localDate.getYear();
         for (Event r: repository.findAll()) {
-            if (r.getYear() == year) {
-                if (r.getMonth() == month){
-                    if (r.getDay() == day) {
+            LocalDate eDate = LocalDate.parse(r.getDate());
+            if (eDate.getYear() == year) {
+                if (eDate.getMonthValue() == month){
+                    if (eDate.getDayOfMonth() == day) {
                         List<Student> list = srepo.findAll();
                         reminderService.upcoming(list, r);
                     }
