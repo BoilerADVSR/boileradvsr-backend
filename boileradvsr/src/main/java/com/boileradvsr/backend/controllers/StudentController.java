@@ -61,7 +61,7 @@ public class StudentController {
         if (params.containsKey("department")) {
             ArrayList<Student> temp = new ArrayList<>();
             for (Student s : getStudents()) {
-                if (s.getPlanOfStudy() == null) break;
+                if (s.getPlanOfStudy() == null) continue;
                 for (Degree d : s.getPlanOfStudy().getDegrees()) {
                     if (d.getDepartment().equals(params.get("department"))) {
                         temp.add(s);
