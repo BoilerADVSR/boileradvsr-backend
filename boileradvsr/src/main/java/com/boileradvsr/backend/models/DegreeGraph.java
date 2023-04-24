@@ -55,6 +55,7 @@ public class DegreeGraph {
 
     public int getIndexByName(String className) {
         int index = -1;
+        //System.out.println(className);
         for (int c = 0; c < classes.size(); c++) {
             if (classes.get(c).equals(className)) {
                 index = c;
@@ -113,7 +114,11 @@ public class DegreeGraph {
         ArrayList<Integer> adjacentClasses = new ArrayList<>();
         ArrayList<Integer> completedClasses = getAllClassesByName(completed);
         //get all adjacent classes by running 1-step BFS, and remove duplicates.
-        for (int i= 0; i < completed.size(); i++) adjacentClasses.addAll(adj.get(getIndexByName(completed.get(i))));
+        for (int i= 0; i < completed.size(); i++) {
+            int index = getIndexByName(completed.get(i));
+            if (index == -1) continue;
+            adjacentClasses.addAll(adj.get(index));
+        }
         List<Integer> adjacentClassesNoDup = adjacentClasses.stream().distinct().toList();
         adjacentClasses = new ArrayList<>(adjacentClassesNoDup);
         adjacentClasses.removeAll(completedClasses);

@@ -48,6 +48,7 @@ public class DegreeGraphController {
 
         for (int i = 3; i < lines.size(); i++) {
             line = lines.get(i);
+            System.out.println(line);
             String[] vertexList = line.split(",");
             for (String vertex : vertexList) {
                 String[] vertices1 = vertex.split(":");

@@ -215,11 +215,13 @@ public class StudentController {
         //default sort is avgGPA
         String sort = "N/A";
         int level = -1;
+        String degree = s.getPlanOfStudy().getDegrees().get(0).getDegreeTitle();
         if (params.containsKey("sort")) sort = params.get("sort");
         if (params.containsKey("level")) level = Integer.parseInt(params.get("level"));
+        if (params.containsKey("degree")) degree = params.get("degree");
 
         ArrayList<Course> eligibleCourses = new ArrayList<>();
-        DegreeGraph graph = degreeGraphController.getDegree("CS");
+        DegreeGraph graph = degreeGraphController.getDegree(degree);
         ArrayList<Requirement> requirementsLeft = s.getPlanOfStudy().requirementsLeft();
         ArrayList<String> studentCourses = new ArrayList<>();
 
