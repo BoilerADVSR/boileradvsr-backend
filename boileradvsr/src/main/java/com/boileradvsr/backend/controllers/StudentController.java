@@ -152,6 +152,7 @@ public class StudentController {
         courseId = courseId.toUpperCase();
 
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        if (student.getPlanOfStudy().listCourseIDsTaken().contains(courseId)) return null;
         Semester semester = student.getPlanOfStudy().getSemesterByDate(season, year);
         if (semester == null) {
             semester = new Semester(year, season);
