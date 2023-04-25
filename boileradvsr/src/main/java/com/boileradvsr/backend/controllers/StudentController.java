@@ -175,6 +175,12 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
+    @GetMapping("/{id}/profile/picture")
+    public String getProfilePictureById(@PathVariable String id) {
+        Student student = repository.findById(id).orElseThrow(RuntimeException::new);
+        return (student.getProfilePicture());
+    }
+
     @PostMapping("/{id}/plan/removebacklog/{courseid}")
     public ResponseEntity removeBacklog(@PathVariable String id, @PathVariable String courseid) throws URISyntaxException {
         Student student = repository.findById(id).orElseThrow(RuntimeException::new);
