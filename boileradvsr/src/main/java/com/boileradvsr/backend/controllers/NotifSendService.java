@@ -16,10 +16,10 @@ public class NotifSendService {
     public StudentRepository studentRepository;
     @Autowired
     public NotifSender notifSender;
-    public void newNotif(String id, String chatId) {
+    public void newNotif(String id, String senderID) {
         Student student = studentRepository.findById(id).orElseThrow(RuntimeException::new);
         String name = student.getFirstName();
-        String link = "http://localhost:8081/chats/"+chatId;
+        String link = "http://localhost:3000/students/chat/"+id + "/" + senderID;
         notifSender.send(id, buildEmail(name, link));
     }
 

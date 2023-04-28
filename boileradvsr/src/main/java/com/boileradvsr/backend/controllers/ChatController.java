@@ -79,7 +79,7 @@ public class ChatController {
         Student receiver = studentRepository.findById(receiverID).orElseThrow(RuntimeException::new);
         receiver.getNotifications().add("New chat from " + senderId + "!");
         studentRepository.save(receiver);
-        notifSendService.newNotif(receiverID,chatID);
+        notifSendService.newNotif(receiverID,senderId);
         return ResponseEntity.ok(chat);
     }
 
